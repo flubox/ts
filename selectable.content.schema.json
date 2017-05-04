@@ -1,0 +1,40 @@
+{
+    "title": "selectable content",
+    "description" : "This is a schema define the content usable inside 'The Selector' (ts)",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "minLength": 1
+        },
+        "locale": {
+            "type": "string",
+            "enum": ["en_UK", "fr_FR"]
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        }
+    },
+    "required":[
+        "id", "locale"
+    ],
+    "anyOf":[
+        {
+            "preview": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "format": "uri"
+                }
+            }
+        },
+        {
+            "html": {
+                "type": "string"
+            }
+        }
+    ]
+}
