@@ -34,7 +34,7 @@ module.exports = {
       // browse to http://localhost:3000/ during development,
       // ./ directory is being served
       host: 'localhost',
-      port: 4000,
+      port: 3000,
       server: {
         baseDir: ['./']
       }
