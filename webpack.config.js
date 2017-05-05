@@ -3,6 +3,15 @@ var webpack = require('webpack');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
+  entry: {
+      index: path.resolve(__dirname, 'src/index.js'),
+      demo: path.resolve(__dirname, 'src/demo.js')
+  },
+  output: {
+    path: path.resolve('dist'),
+    filename: '[name].js',
+    chunkFilename: '[name].js'
+  },
   module: {
     loaders: [
         {
@@ -11,6 +20,10 @@ module.exports = {
                 path.resolve(__dirname, "src")
             ],
             "loader": "babel-loader",
+        },
+        {
+            "test": /\.json?$/,
+            "loader": "json-loader",
         },
         {
             "test": /\.css?$/,
@@ -23,12 +36,6 @@ module.exports = {
     ]
   },
   devtool: 'source-map',
-  entry: path.resolve(__dirname, 'src/index.js'),
-  output: {
-    path: path.resolve('dist'),
-    filename: 'index.js',
-    publicPath: '/'
-  },
   plugins: [
     new BrowserSyncPlugin({
       // browse to http://localhost:3000/ during development,

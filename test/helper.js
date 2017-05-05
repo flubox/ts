@@ -1,4 +1,12 @@
-import * as helper from '../src/helper';
+import {
+    factory,
+    getNode,
+    getRenderProps,
+    merge,
+    metaConfig,
+    not,
+    only
+} from '../src/helper';
 import test from 'ava';
 
 const defaultErrorHandling = t => error => t.true(error instanceof Error);
@@ -6,24 +14,25 @@ const configs = [
     {description: 'empty config', config: {}},
     {description: 'undefined config', config: undefined},
     {description: 'empty endpoint', config: {endpoint: ''}},
-    {description: 'onClick callback is not a function', config: {endpoint: 'http://lorem.ipsum', callbacks: {onClick: 'lorem ipsum'}}}
+    {description: 'resolve is not a function', config: {endpoint: 'http://lorem.ipsum', resolve: 'lorem ipsum'}},
+    {description: 'reject is not a function', config: {endpoint: 'http://lorem.ipsum', reject: 'lorem ipsum'}},
+    // {description: 'onClick callback is not a function', config: {endpoint: 'http://lorem.ipsum', events: {onClick: 'lorem ipsum'}}}
 ]
 
-configs.forEach(({description, config}) => test(`helper.configChecker Error handling: ${description}`, t => helper.configChecker(config).catch(defaultErrorHandling(t))));
+// factory
+test('factory', t => {
+    t.is(typeof factory({}), 'function');
+    t.is(typeof factory([{a: 'b'}])({c: 'd'}), 'function');
+});
 
-// test('helper.configChecker', t => {
-//     return helper.configChecker().catch(defaultErrorHandling(t));
-// });
+// getNode
+test('getNode', t => {
+    t.is(getNode('#root')({querySelector: selector => 'a'}), 'a');
+    t.is(getNode({a: 'a'})().a, 'a');
+});
 
-// test('helper.configChecker', t => {
-//     return helper.configChecker({
-//         endpoint: ''
-//     }).catch(defaultErrorHandling(t));
-// });
+// not
+test('not', t => t.true(not(['a', 'b'])('c')));
 
-// test('helper.configChecker', t => {
-//     return helper.configChecker({
-//         endpoint: '',
-//         callbacks: {onClick: 'this string is an invalid type for this key'}
-//     }).catch(defaultErrorHandling(t));
-// });
+// merge
+test('merge', t => t.is(merge({a: 'a'})({b: 'b'}).b, 'b'));

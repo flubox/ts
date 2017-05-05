@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 83);
+/******/ 	return __webpack_require__(__webpack_require__.s = 193);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22543,6 +22543,71 @@ function traverseAllChildren(children, callback, traverseContext) {
 module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
+/***/ }),
+/* 192 */
+/***/ (function(module, exports) {
+
+module.exports = {
+	"42": {
+		"en_UK": {
+			"title": "harambe"
+		}
+	},
+	"43": {
+		"en_UK": {
+			"title": "tiger"
+		}
+	},
+	"44": {
+		"en_UK": {
+			"title": "guy raph"
+		}
+	},
+	"45": {
+		"en_UK": {
+			"title": "Gille Raph"
+		}
+	}
+};
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(83);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('ts.started', function () {
+        return console.info('event: ts started');
+    });
+    document.addEventListener('ts.onClick', function (_ref) {
+        var target = _ref.target;
+        return console.info('event onClick', target);
+    });
+});
+
+var promises = (0, _index2.default)({
+    debug: true,
+    domElement: '#root',
+    locale: 'en_UK',
+    resolve: function resolve(id) {
+        return console.info('resolve id: ' + id);
+    },
+    reject: function reject(err) {
+        return console.warn('err:', err);
+    },
+    translate: function translate(id, locale) {
+        return __webpack_require__(192)[id][locale];
+    }
+});
+
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=demo.js.map

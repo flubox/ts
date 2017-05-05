@@ -1,37 +1,23 @@
-const schema = require('../options.schema');
-import ZSchema from 'z-schema';
+export const domElementChecker = selector => new Promise((resolve, reject) => !!getNode(selector)(document) ? resolve(node) : reject(node));
 
-export const _typeof = data => typeof data;
+export const factory = list => props => builder => builder && props && list && list.map(builder(props));
 
-export const iof = instance => data => data instanceof instance;
+export const getNode = selector => document => typeof selector === 'string' ? document.querySelector(selector) : selector;
 
-export const metaConfig = config => {
-    let meta = {};
-    if (config.callbacks) {
-        const callbacks = Object.keys(config.callbacks).reduce((accumulator, k) => ({
-            [k]: _typeof(config.callbacks[k])
-        }), {});
-        meta = {...meta, callbacks};
-    }
-    return {...config, typeof: meta};
-};
+export const id = a => i => ({...a, id: i});
 
-export const configChecker = config => {
-    return new Promise((resolve, reject) => {
-        const validator = new ZSchema();
-        config = config ? metaConfig(config) : config;
-        const valid = validator.validate(config, schema);
-        const error = validator.getLastError();
-        // console.log('###', 'config', config, 'error', error);
-        return !!error ? reject(error) : resolve({then: resolve => resolve(config)});
-    });
-};
+export const isUrl = data => !!data.match(/http:/);
 
-export const getNode = selector => typeof selector === 'string' ? document.querySelector(selector) : selector;
+export const keys = object => Object.keys(object);
 
-export const domElementChecker = selector => {
-    return new Promise((resolve, reject) => {
-        const node = getNode(selector);
-        return !!node ? resolve(node) : reject(node);
-    });
-};
+export const not = list => keys => !list.includes(keys);
+
+export const only = list => key => list.includes(keys);
+
+export const preview = a => p => ({...a, preview: p});
+
+export const merge = a => b => !!a && !!b ? ({...a, ...b}) : a || b;
+
+export const mergeByKeys = object => (accumulator, k) => ({...accumulator, [k]: object[k]});
+
+export const standardize = object => keys(object).reduce((a, key) => isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]), {});
