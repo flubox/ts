@@ -1,0 +1,56 @@
+.ts-content-title {
+    color: #595959;
+    text-align: center;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.ts-grid-selector {
+    display: block;
+    margin: auto;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.ts-content-element {
+    background-color: #ffffff;
+    display: inline-flex;
+    width: 48%;
+    margin: 4px;
+    padding: 4px;
+    transition: all 0.5s ease;
+    font: 12px arial,sans-serif;
+}
+.ts-content-element.mobile  {
+    width: 95%;
+}
+.debug .ts-content-element {
+    border: 1px solid black;
+}
+.ts-content-element ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: all 0.5s ease;
+}
+.ts-content-element ul li {
+    width: 100%;
+    display: inline-grid;
+    transition: all 0.5s ease;
+}
+.ts-content-preview {
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.ts-clickable {
+    cursor: pointer;
+}
+.ts-button {
+    background-color: #a2c14b;
+    border-radius: 4px;
+    border-width: 0;
+    color: #ffffff;
+    display: flex;
+    margin: auto;
+    padding: 10px 24px;
+    transition: all 0.5s ease;
+}
