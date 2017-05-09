@@ -15,13 +15,13 @@ export const Content = ({id, locale, preview, onClick, translate}) => {
     return (
         <div className={className(preview)(window)}>
             <ul>
+                <li>{Title({title})}</li>
                 <li>
                     <div className="ts-content-preview-wrapper">
                         {ContentPreview({id, preview})}
+                        {Description({description})}
                     </div>
-                    {Description({description})}
                 </li>
-                <li>{Title({title})}</li>
                 <li>{Button({button, id, onClick})}</li>
             </ul>
         </div>
