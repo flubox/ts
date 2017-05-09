@@ -1,5 +1,10 @@
 import React from 'react';
+import {props, titlelize} from '../helper';
 
-export const Button = ({text, onClick}) => <button className="ts-button" onClick={onClick} >{text}</button>;
+const className = 'ts-button';
+
+const clickable = ' ts-clickable';
+
+export const Button = ({button, id, onClick}) => button && onClick && <button {...props({className, clickable, id, onClick})}>{titlelize(button)}</button>;
 
 export default Button;
