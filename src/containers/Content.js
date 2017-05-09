@@ -4,35 +4,28 @@ import Title from '../components/Title';
 import Description from '../components/Description';
 import ContentPreview from '../components/ContentPreview';
 
-export const Content = ({id, onClick, translate, locale, preview}) => {
+const className = preview => ({innerWidth, innerHeight}) => `ts-content-element${innerWidth < innerHeight ? ' mobile' : ' desktop'}${!!preview ? ' loaded' : ' unloaded'}`;;
+
+export const Content = ({id, locale, preview, onClick, translate}) => {
+    if (typeof translate === 'undefined') {
+        console.warn('Content: No translate function found');
+        return false;
+    }
     const {title, description, button} = translate(id, locale);
-    console.info('...', 'ContentBuilder', {title, description, button});
     return (
-        <div className="ts-content-element">
-            <div className="ts-content-preview-wrapper">
-                {ContentPreview({preview})}
-            </div>
-            {Title({title})}
-            {Description({description})}
+        <div className={className(preview)(window)}>
+            <ul>
+                <li>
+                    <div className="ts-content-preview-wrapper">
+                        {ContentPreview({id, preview})}
+                    </div>
+                    {Description({description})}
+                </li>
+                <li>{Title({title})}</li>
+                <li>{Button({button, id, onClick})}</li>
+            </ul>
         </div>
     );
 };
-
-// export const Content = ({id, onClick, translate, locale, preview}) => {
-//     const {title, description, button} = translate(id, locale);
-//     console.info('...', 'ContentBuilder', {title, description, button});
-//     return (
-//         <div className="ts-content-element">
-//             <div className="ts-content-preview-wrapper">
-//                 {ContentPreview({preview})}
-//             </div>
-//             <Title title={title}/>
-//             <Description description={description}/>
-//             <div className="ts-content-button-wrapper">
-//                 <Button value={id} onClick={onClick} text={button}/>
-//             </div>
-//         </div>
-//     );
-// };
 
 export default Content;
