@@ -7,10 +7,10 @@ const config = require('../../config.json');
 @autobind
 export class GridSelector extends Component {
     state = {data: []}
+    onClick({target}) {
+        return this.props.options.resolve(target);
+    }
     componentWillMount() {
-        const event = new Event('ts.started', {detail: {started: true}});
-        document.dispatchEvent(event);
-
         fetch(
             this.props.options.endpoint || config.endpoint,
             {
@@ -22,20 +22,17 @@ export class GridSelector extends Component {
         .then(response => {
             const {options} = this.props;
             const {locale, resolve, reject, translate} = options;
-            response.json().then(data => {
-                const event = new Event('ts.update', {detail: {update: true}});
-                document.dispatchEvent(event);
-                this.setState({data: data.map(standardize)});
-            });
+            response.json().then(data => this.setState({data: data.map(standardize)}));
         })
         .catch(error => {
             console.warn(error);
         })
     }
     render() {
+        const {onClick, props, state} = this;
         return (
             <div className="ts-grid-selector">
-                {factory(this.state.data)({...config, ...this.props.options})(ContentBuilder)}
+                {factory(state.data)({...config, onClick: ({target}) => props.options.resolve(target.id), ...props.options})(ContentBuilder)}
             </div>
         );
     }
