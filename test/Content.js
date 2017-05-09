@@ -6,9 +6,8 @@ import Content from '../src/containers/Content';
 const props = {
     resolve: id => id,
     reject: err => err,
-    translate: () => {},
-    id: 44,
-    locale: "en_UK"
+    translate: key => ({title:'lorem', description:'ipsum'}),
+    id: 44
 };
 
 const className = 'ts-content-element';

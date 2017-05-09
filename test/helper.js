@@ -2,10 +2,14 @@ import {
     factory,
     getNode,
     getRenderProps,
+    id,
+    isUrl,
     merge,
     metaConfig,
-    not,
-    only
+    preview,
+    standardize,
+    titlelize,
+    titlelizeAll
 } from '../src/helper';
 import test from 'ava';
 
@@ -31,8 +35,31 @@ test('getNode', t => {
     t.is(getNode({a: 'a'})().a, 'a');
 });
 
-// not
-test('not', t => t.true(not(['a', 'b'])('c')));
+// id
+test('id', t => t.is(id({lorem: 'ipsum'})(42).id, 42));
+
+// isUrl
+test('isUrl', t => {
+    t.true(isUrl('http://lorem.ipsum'));
+    t.false(isUrl('lorem://ipsum.dolor'));
+});
 
 // merge
 test('merge', t => t.is(merge({a: 'a'})({b: 'b'}).b, 'b'));
+
+// preview
+test('preview', t => t.is(preview({lorem: 'ipsum'})('dolor').preview, 'dolor'));
+
+// standardize
+test('standardize', t => {
+    const o = {lorem: '42', ipsum: 'http://lorem.ipsum'};
+    const standardized = standardize(o);
+    t.is(standardized.id, o.lorem);
+    t.is(standardized.preview, o.ipsum);
+});
+
+// titlelize
+test('titlelize', t => t.is(titlelize('lorem'), 'Lorem'));
+
+// titlelizeAll
+test('titlelizeAll', t => t.is(titlelizeAll('lorem ipsum'), 'Lorem Ipsum'));

@@ -5,7 +5,8 @@ import Content from '../src/containers/Content';
 
 const props = {
     resolve: id => id,
-    reject: err => err
+    reject: err => err,
+    translate: key => ({title:'lorem', description:'ipsum'})
 };
 
 test('ContentBuilder return a function', t => t.true(typeof ContentBuilder(props) === 'function'));

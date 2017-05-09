@@ -5,7 +5,8 @@ import GridSelector from '../src/containers/GridSelector';
 
 const options = {
     resolve: id => id,
-    reject: err => err
+    reject: err => err,
+    translate: key => ({title:'lorem', description:'ipsum'})
 };
 
 test('GridSelector show a div container', t => {
