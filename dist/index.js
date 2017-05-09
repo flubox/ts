@@ -4653,7 +4653,10 @@ var domElementChecker = exports.domElementChecker = function domElementChecker(s
 var factory = exports.factory = function factory(list) {
   return function (props) {
     return function (builder) {
-      return builder && props && list && list.map(builder(props));
+      return builder && props && list && list.filter(function (_ref) {
+        var preview = _ref.preview;
+        return !!preview;
+      }).map(builder(props));
     };
   };
 };
@@ -4671,29 +4674,7 @@ var id = exports.id = function id(a) {
 };
 
 var isUrl = exports.isUrl = function isUrl(data) {
-  return !!data.match(/http:/);
-};
-
-var keys = exports.keys = function keys(object) {
-  return Object.keys(object);
-};
-
-var not = exports.not = function not(list) {
-  return function (keys) {
-    return !list.includes(keys);
-  };
-};
-
-var only = exports.only = function only(list) {
-  return function (key) {
-    return list.includes(keys);
-  };
-};
-
-var preview = exports.preview = function preview(a) {
-  return function (p) {
-    return _extends({}, a, { preview: p });
-  };
+  return data && !!data.match(/^(http)(s?):/);
 };
 
 var merge = exports.merge = function merge(a) {
@@ -4708,10 +4689,34 @@ var mergeByKeys = exports.mergeByKeys = function mergeByKeys(object) {
   };
 };
 
+var preview = exports.preview = function preview(a) {
+  return function (p) {
+    return _extends({}, a, { preview: p });
+  };
+};
+
+var props = exports.props = function props(_ref2) {
+  var className = _ref2.className,
+      clickable = _ref2.clickable,
+      id = _ref2.id,
+      onClick = _ref2.onClick,
+      preview = _ref2.preview,
+      type = _ref2.type;
+  return { id: id, onClick: onClick, className: '' + className + (onClick ? clickable : ''), data: preview, key: preview, src: preview, type: type };
+};
+
 var standardize = exports.standardize = function standardize(object) {
-  return keys(object).reduce(function (a, key) {
+  return Object.keys(object).reduce(function (a, key) {
     return isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]);
   }, {});
+};
+
+var titlelize = exports.titlelize = function titlelize(text) {
+  return '' + text.substr(0, 1).toUpperCase() + text.substr(1);
+};
+
+var titlelizeAll = exports.titlelizeAll = function titlelizeAll(text) {
+  return text.split(' ').map(titlelize).join(' ');
 };
 
 /***/ }),
@@ -9658,12 +9663,16 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
     }
 
     _createClass(GridSelector, [{
+        key: 'onClick',
+        value: function onClick(_ref2) {
+            var target = _ref2.target;
+
+            return this.props.options.resolve(target);
+        }
+    }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
             var _this2 = this;
-
-            var event = new Event('ts.started', { detail: { started: true } });
-            document.dispatchEvent(event);
 
             fetch(this.props.options.endpoint || config.endpoint, {
                 method: 'GET',
@@ -9677,9 +9686,7 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
                     translate = options.translate;
 
                 response.json().then(function (data) {
-                    var event = new Event('ts.update', { detail: { update: true } });
-                    document.dispatchEvent(event);
-                    _this2.setState({ data: data.map(_helper.standardize) });
+                    return _this2.setState({ data: data.map(_helper.standardize) });
                 });
             }).catch(function (error) {
                 console.warn(error);
@@ -9688,10 +9695,17 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
     }, {
         key: 'render',
         value: function render() {
+            var onClick = this.onClick,
+                props = this.props,
+                state = this.state;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'ts-grid-selector' },
-                (0, _helper.factory)(this.state.data)(_extends({}, config, this.props.options))(_ContentBuilder2.default)
+                (0, _helper.factory)(state.data)(_extends({}, config, { onClick: function onClick(_ref3) {
+                        var target = _ref3.target;
+                        return props.options.resolve(target.id);
+                    } }, props.options))(_ContentBuilder2.default)
             );
         }
     }]);
@@ -9863,7 +9877,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.ContentBuilder = undefined;
 
@@ -9881,11 +9895,14 @@ var _Content2 = _interopRequireDefault(_Content);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var t = function t(a) {
+  return typeof a !== 'undefined';
+};
+
 var ContentBuilder = exports.ContentBuilder = function ContentBuilder(props) {
-    return function (data, key) {
-        console.info('...', 'ContentBuilder', _extends({}, props), _extends({}, data));
-        return !!props && !!data && !!key && _react2.default.createElement(_Content2.default, _extends({ key: key }, (0, _helper.merge)(props)(data)));
-    };
+  return function (data, key) {
+    return t(props) && t(data) && t(key) && _react2.default.createElement(_Content2.default, _extends({ key: key }, (0, _helper.merge)(props)(data)));
+  };
 };
 
 exports.default = ContentBuilder;
@@ -9906,15 +9923,22 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _helper = __webpack_require__(33);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var className = 'ts-button';
+
+var clickable = ' ts-clickable';
+
 var Button = exports.Button = function Button(_ref) {
-  var text = _ref.text,
+  var button = _ref.button,
+      id = _ref.id,
       onClick = _ref.onClick;
-  return _react2.default.createElement(
-    "button",
-    { className: "ts-button", onClick: onClick },
-    text
+  return button && onClick && _react2.default.createElement(
+    'button',
+    (0, _helper.props)({ className: className, clickable: clickable, id: id, onClick: onClick }),
+    (0, _helper.titlelize)(button)
   );
 };
 
@@ -9936,11 +9960,18 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _helper = __webpack_require__(33);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var className = 'ts-content-preview ts-img-content-preview';
+
+var clickable = ' ts-clickable';
+
 var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
-  var preview = _ref.preview;
-  return _react2.default.createElement("img", { key: preview, className: "ts-content-preview", src: preview });
+  var id = _ref.id,
+      preview = _ref.preview;
+  return preview && _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }));
 };
 
 exports.default = ContentPreview;
@@ -9990,14 +10021,17 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _helper = __webpack_require__(33);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Title = exports.Title = function Title(_ref) {
-  var title = _ref.title;
+  var title = _ref.title,
+      onClick = _ref.onClick;
   return title && _react2.default.createElement(
-    "h3",
-    { className: "ts-content-title" },
-    title
+    'h3',
+    { className: 'ts-content-title' + (onClick ? ' ts-clickable' : '') },
+    (0, _helper.titlelizeAll)(title)
   );
 };
 
@@ -10037,48 +10071,60 @@ var _ContentPreview2 = _interopRequireDefault(_ContentPreview);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Content = exports.Content = function Content(_ref) {
-    var id = _ref.id,
-        onClick = _ref.onClick,
-        translate = _ref.translate,
-        locale = _ref.locale,
-        preview = _ref.preview;
+var className = function className(preview) {
+    return function (_ref) {
+        var innerWidth = _ref.innerWidth,
+            innerHeight = _ref.innerHeight;
+        return 'ts-content-element' + (innerWidth < innerHeight ? ' mobile' : ' desktop') + (!!preview ? ' loaded' : ' unloaded');
+    };
+};;
+
+var Content = exports.Content = function Content(_ref2) {
+    var id = _ref2.id,
+        locale = _ref2.locale,
+        preview = _ref2.preview,
+        onClick = _ref2.onClick,
+        translate = _ref2.translate;
+
+    if (typeof translate === 'undefined') {
+        console.warn('Content: No translate function found');
+        return false;
+    }
 
     var _translate = translate(id, locale),
         title = _translate.title,
         description = _translate.description,
         button = _translate.button;
 
-    console.info('...', 'ContentBuilder', { title: title, description: description, button: button });
     return _react2.default.createElement(
         'div',
-        { className: 'ts-content-element' },
+        { className: className(preview)(window) },
         _react2.default.createElement(
-            'div',
-            { className: 'ts-content-preview-wrapper' },
-            (0, _ContentPreview2.default)({ preview: preview })
-        ),
-        (0, _Title2.default)({ title: title }),
-        (0, _Description2.default)({ description: description })
+            'ul',
+            null,
+            _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'ts-content-preview-wrapper' },
+                    (0, _ContentPreview2.default)({ id: id, preview: preview })
+                ),
+                (0, _Description2.default)({ description: description })
+            ),
+            _react2.default.createElement(
+                'li',
+                null,
+                (0, _Title2.default)({ title: title })
+            ),
+            _react2.default.createElement(
+                'li',
+                null,
+                (0, _Button2.default)({ button: button, id: id, onClick: onClick })
+            )
+        )
     );
 };
-
-// export const Content = ({id, onClick, translate, locale, preview}) => {
-//     const {title, description, button} = translate(id, locale);
-//     console.info('...', 'ContentBuilder', {title, description, button});
-//     return (
-//         <div className="ts-content-element">
-//             <div className="ts-content-preview-wrapper">
-//                 {ContentPreview({preview})}
-//             </div>
-//             <Title title={title}/>
-//             <Description description={description}/>
-//             <div className="ts-content-button-wrapper">
-//                 <Button value={id} onClick={onClick} text={button}/>
-//             </div>
-//         </div>
-//     );
-// };
 
 exports.default = Content;
 
