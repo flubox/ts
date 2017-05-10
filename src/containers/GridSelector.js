@@ -24,9 +24,7 @@ export class GridSelector extends Component {
             const {locale, resolve, reject, translate} = options;
             response.json().then(data => this.setState({data: data.map(standardize)}));
         })
-        .catch(error => {
-            console.warn(error);
-        })
+        .catch(console.warn)
     }
     render() {
         const {onClick, props, state} = this;
