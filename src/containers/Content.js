@@ -4,7 +4,7 @@ import Title from '../components/Title';
 import Description from '../components/Description';
 import ContentPreview from '../components/ContentPreview';
 
-const className = preview => ({innerWidth, innerHeight}) => `ts-content-element${innerWidth < innerHeight ? ' mobile' : ' desktop'}${!!preview ? ' loaded' : ' unloaded'}`;;
+export const className = preview => ({innerWidth, innerHeight}) => `ts-content-element${innerWidth < innerHeight ? ' mobile' : ' desktop'}${!!preview ? ' loaded' : ' unloaded'}`;
 
 export const Content = ({id, locale, preview, onClick, translate}) => {
     if (!translate) {
