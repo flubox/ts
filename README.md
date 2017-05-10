@@ -1,6 +1,6 @@
 # The Selector (ts)
 
-## Usage for compiled widget :
+## Usage :
 
 - ``window.ts(options)`` *or* ``ts(options)``
 
