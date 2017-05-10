@@ -9881,7 +9881,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ContentBuilder = undefined;
+exports.ContentBuilder = exports.check = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -9897,9 +9897,13 @@ var _Content2 = _interopRequireDefault(_Content);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var check = exports.check = function check(item) {
+  return typeof item !== 'undefined';
+};
+
 var ContentBuilder = exports.ContentBuilder = function ContentBuilder(props) {
   return function (data, key) {
-    return !!props && !!data && !!key && _react2.default.createElement(_Content2.default, _extends({ key: key }, (0, _helper.merge)(props)(data)));
+    return check(props) && check(data) && check(key) && _react2.default.createElement(_Content2.default, _extends({ key: key }, (0, _helper.merge)(props)(data)));
   };
 };
 
