@@ -7,7 +7,7 @@ const props = {
     resolve: id => id,
     reject: err => err,
     translate: key => ({title:'lorem', description:'ipsum'}),
-    id: 44
+    id: 42
 };
 
 const className = 'ts-content-element';

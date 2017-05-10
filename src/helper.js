@@ -1,10 +1,12 @@
 export const domElementChecker = selector => new Promise((resolve, reject) => !!getNode(selector)(document) ? resolve(node) : reject(node));
 
-export const factory = list => props => builder => builder && props && list && list.filter(({preview}) => !!preview).map(builder(props));
+export const factory = list => props => builder => !!builder && !!props && !!list && isArr(list) && list.filter(({preview}) => !!preview).map(builder(props));
 
 export const getNode = selector => document => typeof selector === 'string' ? document.querySelector(selector) : selector;
 
 export const id = a => i => ({...a, id: i});
+
+export const isArr = item => Array.isArray(item);
 
 export const isUrl = data => data && !!data.match(/^(http)(s?):/);
 
