@@ -1,8 +1,16 @@
 import React, {PropTypes, Component} from 'react';
 import autobind from 'autobind-decorator';
-import {factory, standardize} from '../helper';
+import {factory, isDef, standardize} from '../helper';
 import ContentBuilder from '../ContentBuilder';
-const config = require('../../config.json');
+import {fetchInit} from '../constants';
+
+export const standardizeState = context => data => context.setState({data: data.map(standardize)});
+
+export const afterFetch = context => response => response.json().then(standardizeState(context));
+
+export const updateStateFromFetch = context => {
+    return isDef(context.props.options.endpoint) ? fetch(context.props.options.endpoint, fetchInit).then(afterFetch(context)).catch(console.warn) : false;
+};
 
 @autobind
 export class GridSelector extends Component {
@@ -11,26 +19,13 @@ export class GridSelector extends Component {
         return this.props.options.resolve(target);
     }
     componentWillMount() {
-        fetch(
-            this.props.options.endpoint || config.endpoint,
-            {
-                method: 'GET',
-                headers: new Headers({'Accept': 'application/json'}),
-                mode: 'cors'
-            }
-        )
-        .then(response => {
-            const {options} = this.props;
-            const {locale, resolve, reject, translate} = options;
-            response.json().then(data => this.setState({data: data.map(standardize)}));
-        })
-        .catch(console.warn)
+        updateStateFromFetch(this);
     }
     render() {
         const {onClick, props, state} = this;
         return (
             <div className="ts-grid-selector">
-                {factory(state.data)({...config, onClick: ({target}) => props.options.resolve(target.id), ...props.options})(ContentBuilder)}
+                {factory(state.data)({onClick: props.options.resolve, ...props.options})(ContentBuilder)}
             </div>
         );
     }

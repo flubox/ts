@@ -2912,18 +2912,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var domElementChecker = exports.domElementChecker = function domElementChecker(selector) {
-  return new Promise(function (resolve, reject) {
-    return !!getNode(selector)(document) ? resolve(node) : reject(node);
-  });
+var domElementChecker = exports.domElementChecker = function domElementChecker(document) {
+  return function (domElement) {
+    return new Promise(function (resolve, reject) {
+      return !!getNode(domElement)(document) ? resolve(domElement) : reject(domElement);
+    });
+  };
 };
 
 var factory = exports.factory = function factory(list) {
   return function (props) {
     return function (builder) {
-      return !!builder && !!props && !!list && isArr(list) && list.filter(function (_ref) {
+      return isDef(builder) && isDef(props) && isDef(list) && isArr(list) && list.length > 0 && list.filter(function (_ref) {
         var preview = _ref.preview;
-        return !!preview;
+        return isDef(preview);
       }).map(builder(props));
     };
   };
@@ -2945,8 +2947,12 @@ var isArr = exports.isArr = function isArr(item) {
   return Array.isArray(item);
 };
 
+var isDef = exports.isDef = function isDef(item) {
+  return !unDef(item);
+};
+
 var isUrl = exports.isUrl = function isUrl(data) {
-  return data && !!data.match(/^(http)(s?):/);
+  return isDef(data) && !!data.toString().match(/^(http)(s?):/);
 };
 
 var merge = exports.merge = function merge(a) {
@@ -2974,7 +2980,7 @@ var props = exports.props = function props(_ref2) {
       onClick = _ref2.onClick,
       preview = _ref2.preview,
       type = _ref2.type;
-  return { id: id, onClick: onClick, className: '' + className + (onClick ? clickable : ''), data: preview, key: preview, src: preview, type: type };
+  return { id: id, onClick: onClick, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: preview, type: type };
 };
 
 var standardize = exports.standardize = function standardize(object) {
@@ -2989,6 +2995,10 @@ var titlelize = exports.titlelize = function titlelize(text) {
 
 var titlelizeAll = exports.titlelizeAll = function titlelizeAll(text) {
   return text.split(' ').map(titlelize).join(' ');
+};
+
+var unDef = exports.unDef = function unDef(item) {
+  return typeof item === 'undefined';
 };
 
 /***/ }),
@@ -9617,7 +9627,7 @@ module.exports = getIteratorFn;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.GridSelector = undefined;
+exports.GridSelector = exports.updateStateFromFetch = exports.afterFetch = exports.standardizeState = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -9639,6 +9649,8 @@ var _ContentBuilder = __webpack_require__(86);
 
 var _ContentBuilder2 = _interopRequireDefault(_ContentBuilder);
 
+var _constants = __webpack_require__(193);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9647,7 +9659,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var config = __webpack_require__(106);
+var standardizeState = exports.standardizeState = function standardizeState(context) {
+    return function (data) {
+        return context.setState({ data: data.map(_helper.standardize) });
+    };
+};
+
+var afterFetch = exports.afterFetch = function afterFetch(context) {
+    return function (response) {
+        return response.json().then(standardizeState(context));
+    };
+};
+
+var updateStateFromFetch = exports.updateStateFromFetch = function updateStateFromFetch(context) {
+    return (0, _helper.isDef)(context.props.options.endpoint) ? fetch(context.props.options.endpoint, _constants.fetchInit).then(afterFetch(context)).catch(console.warn) : false;
+};
 
 var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_class = function (_Component) {
     _inherits(GridSelector, _Component);
@@ -9676,23 +9702,7 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
-            var _this2 = this;
-
-            fetch(this.props.options.endpoint || config.endpoint, {
-                method: 'GET',
-                headers: new Headers({ 'Accept': 'application/json' }),
-                mode: 'cors'
-            }).then(function (response) {
-                var options = _this2.props.options;
-                var locale = options.locale,
-                    resolve = options.resolve,
-                    reject = options.reject,
-                    translate = options.translate;
-
-                response.json().then(function (data) {
-                    return _this2.setState({ data: data.map(_helper.standardize) });
-                });
-            }).catch(console.warn);
+            updateStateFromFetch(this);
         }
     }, {
         key: 'render',
@@ -9704,10 +9714,7 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
             return _react2.default.createElement(
                 'div',
                 { className: 'ts-grid-selector' },
-                (0, _helper.factory)(state.data)(_extends({}, config, { onClick: function onClick(_ref3) {
-                        var target = _ref3.target;
-                        return props.options.resolve(target.id);
-                    } }, props.options))(_ContentBuilder2.default)
+                (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
             );
         }
     }]);
@@ -9937,7 +9944,7 @@ var Button = exports.Button = function Button(_ref) {
   var button = _ref.button,
       id = _ref.id,
       onClick = _ref.onClick;
-  return button && onClick && _react2.default.createElement(
+  return (0, _helper.isDef)(button) && (0, _helper.isDef)(id) && (0, _helper.isDef)(onClick) && _react2.default.createElement(
     'button',
     (0, _helper.props)({ className: className, clickable: clickable, id: id, onClick: onClick }),
     (0, _helper.titlelize)(button)
@@ -9973,7 +9980,7 @@ var clickable = ' ts-clickable';
 var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
   var id = _ref.id,
       preview = _ref.preview;
-  return preview && _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }));
+  return (0, _helper.isDef)(id) && (0, _helper.isDef)(preview) && _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }));
 };
 
 exports.default = ContentPreview;
@@ -9994,14 +10001,16 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _helper = __webpack_require__(21);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Description = exports.Description = function Description(_ref) {
   var description = _ref.description;
-  return description && _react2.default.createElement(
-    "div",
-    { className: "ts-content-description" },
-    description
+  return (0, _helper.isDef)(description) && _react2.default.createElement(
+    'div',
+    { className: 'ts-content-description' },
+    (0, _helper.titlelize)(description)
   );
 };
 
@@ -10028,11 +10037,10 @@ var _helper = __webpack_require__(21);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Title = exports.Title = function Title(_ref) {
-  var title = _ref.title,
-      onClick = _ref.onClick;
-  return title && _react2.default.createElement(
+  var title = _ref.title;
+  return (0, _helper.isDef)(title) && _react2.default.createElement(
     'h3',
-    { className: 'ts-content-title' + (onClick ? ' ts-clickable' : '') },
+    { className: 'ts-content-title' },
     (0, _helper.titlelizeAll)(title)
   );
 };
@@ -10870,14 +10878,7 @@ if (performance.now) {
 module.exports = performanceNow;
 
 /***/ }),
-/* 106 */
-/***/ (function(module, exports) {
-
-module.exports = {
-	"endpoint": "http://localhost:8080/fakeapi"
-};
-
-/***/ }),
+/* 106 */,
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22590,6 +22591,22 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 192 */,
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var headers = exports.headers = new Headers({ 'Accept': 'application/json' });
+var method = exports.method = 'GET';
+var mode = exports.mode = 'cors';
+var fetchInit = exports.fetchInit = { method: method, headers: headers, mode: mode };
 
 /***/ })
 /******/ ]);
