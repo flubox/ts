@@ -7,19 +7,20 @@
 - options : 
     - ``options.debug`` (optional) : Display some console.log|info|warn
     - ``options.domElement`` (required) : The selector for a DOM element, or the DOM element itself
-    - ``options.locale`` (required) : The locale value to be provided to the ``translate`` function (see below) 
     - ``options.resolve`` (required) : The function triggered onClick, giving the selected id
     - ``options.reject`` (required) : The function triggered on any error
     - ``options.translate`` (required) : The function used to obtain the translated texts
 
+n.b : ``options.locale`` is no more provided to the ``options.translate(id)`` function, as it is assumed it will be managed somehow (be it currying, or anything else) 
+
 ### Required Structure for text translation :
 
-``translate(id, locale)`` must return a structure compatible with the one below .
+``translate(id)`` must return a structure compatible with the one below (``description`` is optional).
 
 ```
 {
     title: "a title",
-    description: "some description (optional)",
+    description: "some (OPTIONAL) description, not displayed if missing",
     button: "the text displayed inside the button"
 }
 ```

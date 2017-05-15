@@ -6,12 +6,12 @@ import ContentPreview from '../components/ContentPreview';
 
 export const className = preview => ({innerWidth, innerHeight}) => `ts-content-element${innerWidth < innerHeight ? ' mobile' : ' desktop'}${!!preview ? ' loaded' : ' unloaded'}`;
 
-export const Content = ({id, locale, preview, onClick, translate}) => {
+export const Content = ({id, preview, onClick, translate}) => {
     if (!translate) {
         console.warn('Content: No translate function found');
         return false;
     }
-    const {title, description, button} = translate(id, locale);
+    const {title, description, button} = translate(id);
     return (
         <div className={className(preview)(window)}>
             <ul>
