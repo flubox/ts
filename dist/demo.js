@@ -3002,6 +3002,7 @@ module.exports = React;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
+
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22676,6 +22677,21 @@ if (debug) {
 }
 
 var promises = (0, _index2.default)(options);
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var headers = exports.headers = new Headers({ 'Accept': 'application/json' });
+var method = exports.method = 'GET';
+var mode = exports.mode = 'cors';
+var fetchInit = exports.fetchInit = { method: method, headers: headers, mode: mode };
 
 /***/ })
 /******/ ]);

@@ -10002,7 +10002,7 @@ var _react = __webpack_require__(13);
 var _react2 = _interopRequireDefault(_react);
 
 var _helper = __webpack_require__(18);
-
+ 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Description = exports.Description = function Description(_ref) {
@@ -22604,6 +22604,22 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 192 */,
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var headers = exports.headers = new Headers({ 'Accept': 'application/json' });
+var method = exports.method = 'GET';
+var mode = exports.mode = 'cors';
+var fetchInit = exports.fetchInit = { method: method, headers: headers, mode: mode };
 
 /***/ })
 /******/ ]);
