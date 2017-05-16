@@ -21,6 +21,9 @@ export class GridSelector extends Component {
     componentWillMount() {
         updateStateFromFetch(this);
     }
+    componentWillUnmount() {
+        this.setState({data: []});
+    }
     render() {
         const {onClick, props, state} = this;
         return (
