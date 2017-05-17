@@ -22,7 +22,7 @@ export const Content = ({id, preview, onClick, translate}) => {
                         {Description({description})}
                     </div>
                 </li>
-                <li>{Button({button, id, onClick})}</li>
+                <li>{Button({button, id, onClick: ({target}) => onClick(target.id)})}</li>
             </ul>
         </div>
     );
