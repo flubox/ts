@@ -10339,9 +10339,6 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
         key: 'componentWillMount',
         value: function componentWillMount() {
             updateStateFromFetch(this);
-            // window.addEventListener('resize', () => {
-            //     // this.forceUpdate();
-            // });
         }
     }, {
         key: 'render',

@@ -26,9 +26,6 @@ export class GridSelector extends Component {
     }
     componentWillMount() {
         updateStateFromFetch(this);
-        // window.addEventListener('resize', () => {
-        //     // this.forceUpdate();
-        // });
     }
     render() {
         const {onClick, props, state} = this;
