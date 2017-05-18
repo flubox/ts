@@ -25,13 +25,18 @@ export class GridSelector extends Component {
         return this.props.options.resolve(target);
     }
     componentWillMount() {
+        window.addEventListener('resize', () => this.forceUpdate());
+        // this.setState({width: `${document.querySelector(this.props.options.domElement).getBoundingClientRect().width}px`});
         updateStateFromFetch(this);
     }
     render() {
         const {onClick, props, state} = this;
+        const mobile = !!md.mobile();
+        const orientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+        const className = `ts-grid-selector${mobile ? ' mobile' : ''} ${orientation}`;
         return (
-            <Grid fluid>
-                <Row className={`ts-grid-selector${md.mobile() ? ' mobile' : ''}`}>
+            <Grid fluid style={{padding: 0}}>
+                <Row className={className} style={{width: state.width}}>
                     {factory(state.data)({onClick: props.options.resolve, ...props.options})(ContentBuilder)}
                 </Row>
             </Grid>

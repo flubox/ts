@@ -10338,6 +10338,12 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var _this2 = this;
+
+            window.addEventListener('resize', function () {
+                return _this2.forceUpdate();
+            });
+            // this.setState({width: `${document.querySelector(this.props.options.domElement).getBoundingClientRect().width}px`});
             updateStateFromFetch(this);
         }
     }, {
@@ -10347,12 +10353,15 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
                 props = this.props,
                 state = this.state;
 
+            var mobile = !!md.mobile();
+            var orientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+            var className = 'ts-grid-selector' + (mobile ? ' mobile' : '') + ' ' + orientation;
             return _react2.default.createElement(
                 _reactFlexboxGrid.Grid,
-                { fluid: true },
+                { fluid: true, style: { padding: 0 } },
                 _react2.default.createElement(
                     _reactFlexboxGrid.Row,
-                    { className: 'ts-grid-selector' + (md.mobile() ? ' mobile' : '') },
+                    { className: className, style: { width: state.width } },
                     (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
                 )
             );
@@ -10624,18 +10633,6 @@ var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
       preview = _ref.preview;
   return (0, _helper.isDef)(id) && (0, _helper.isDef)(preview) && _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }));
 };
-// export const ContentPreview = ({id, preview}) => {
-//     if (isDef(id) && isDef(preview)) {
-//         return (
-//             <Row>
-//                 <Col xs={12}>
-//                     <div className={`${className}${clickable}`} style={{backgroundImage:`url(${preview})`}}/>
-//                 </Col>
-//             </Row>
-//         );
-//     }
-//     return false;
-// }
 
 exports.default = ContentPreview;
 
@@ -10771,40 +10768,36 @@ var Content = exports.Content = function Content(_ref) {
 
     return _react2.default.createElement(
         _reactFlexboxGrid.Col,
-        { xs: 12, sm: 6 },
+        { className: 'ts-content-element', xs: 12, sm: 6 },
         _react2.default.createElement(
-            'div',
-            { className: 'ts-content-element' },
+            _reactFlexboxGrid.Row,
+            null,
             _react2.default.createElement(
-                _reactFlexboxGrid.Row,
-                null,
-                _react2.default.createElement(
-                    _reactFlexboxGrid.Col,
-                    { xs: 4, sm: 12 },
-                    (0, _Title2.default)({ title: title })
-                )
-            ),
+                _reactFlexboxGrid.Col,
+                { xs: 12, sm: 12 },
+                (0, _Title2.default)({ title: title })
+            )
+        ),
+        _react2.default.createElement(
+            _reactFlexboxGrid.Row,
+            null,
             _react2.default.createElement(
-                _reactFlexboxGrid.Row,
-                null,
-                _react2.default.createElement(
-                    _reactFlexboxGrid.Col,
-                    { xs: 8, sm: 8 },
-                    (0, _ContentPreview2.default)({ id: id, preview: preview }),
-                    (0, _Description2.default)({ description: description })
-                )
-            ),
+                _reactFlexboxGrid.Col,
+                { xs: 8, sm: 8 },
+                (0, _ContentPreview2.default)({ id: id, preview: preview }),
+                (0, _Description2.default)({ description: description })
+            )
+        ),
+        _react2.default.createElement(
+            _reactFlexboxGrid.Row,
+            null,
             _react2.default.createElement(
-                _reactFlexboxGrid.Row,
-                null,
-                _react2.default.createElement(
-                    _reactFlexboxGrid.Col,
-                    { xs: 8, xsOffset: 1, sm: 6, smOffset: 4 },
-                    (0, _Button2.default)({ button: button, id: id, onClick: function onClick(_ref2) {
-                            var target = _ref2.target;
-                            return _onClick(target.id);
-                        } })
-                )
+                _reactFlexboxGrid.Col,
+                { xs: 8, xsOffset: 1, sm: 6, smOffset: 4 },
+                (0, _Button2.default)({ button: button, id: id, onClick: function onClick(_ref2) {
+                        var target = _ref2.target;
+                        return _onClick(target.id);
+                    } })
             )
         )
     );
