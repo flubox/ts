@@ -3,8 +3,8 @@ import Button from '../components/Button';
 import Title from '../components/Title';
 import Description from '../components/Description';
 import ContentPreview from '../components/ContentPreview';
+import { Col, Row } from 'react-flexbox-grid';
 
-export const className = preview => ({innerWidth, innerHeight}) => `ts-content-element${innerWidth < innerHeight ? ' mobile' : ' desktop'}${!!preview ? ' loaded' : ' unloaded'}`;
 
 export const Content = ({id, preview, onClick, translate}) => {
     if (!translate) {
@@ -13,18 +13,24 @@ export const Content = ({id, preview, onClick, translate}) => {
     }
     const {title, description, button} = translate(id);
     return (
-        <div className={className(preview)(window)}>
-            <ul>
-                <li>{Title({title})}</li>
-                <li>
-                    <div className="ts-content-preview-wrapper">
-                        {ContentPreview({id, preview})}
-                        {Description({description})}
-                    </div>
-                </li>
-                <li>{Button({button, id, onClick: ({target}) => onClick(target.id)})}</li>
-            </ul>
-        </div>
+        <Col className='ts-content-element' xs={12} sm={6}>
+            <Row>
+                <Col>
+                    {Title({title})}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {ContentPreview({id, preview})}
+                    {Description({description})}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {Button({button, id, onClick: ({target}) => onClick(target.id)})}
+                </Col>
+            </Row>
+        </Col>
     );
 };
 

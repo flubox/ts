@@ -13,7 +13,7 @@ module.exports = {
     chunkFilename: '[name].js'
   },
   module: {
-    loaders: [
+    rules: [
         {
             "test": /\.js?$/,
             "include": [
@@ -23,15 +23,15 @@ module.exports = {
         },
         {
             "test": /\.json?$/,
-            "loader": "json-loader",
+            "loader": "json-loader"
         },
         {
-            "test": /\.css?$/,
-            "loader": "style!css"
-        },
-        {
-            "test": /\.scss?$/,
-            "loader": "style!css!sass"
+            test: /\.css$/,
+            loader: 'style-loader!css-loader',
+            include: [
+                path.resolve(__dirname, 'src'),
+                path.resolve(__dirname, 'node_modules/flexboxgrid')
+            ]
         }
     ]
   },
