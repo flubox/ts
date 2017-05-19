@@ -34,15 +34,15 @@ const trad = {
 };
 
 const debug = window.location.search && !!window.location.search.match(/debug/);
+const locale = 'en_UK';
 
 const options = {
     debug,
     domElement: '#root',
     endpoint: 'http://localhost:8080/fakeapi',
-    locale: 'en_UK',
     resolve: id => console.info(`resolve id: ${id}`),
     reject: err => console.warn('err:', err),
-    translate: (id, locale) => ({...trad[id][locale], button: 'choose this theme'})
+    translate: (id) => ({...trad[id][locale], button: 'choose this theme'})
 };
 
 if (debug) {

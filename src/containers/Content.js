@@ -6,12 +6,12 @@ import ContentPreview from '../components/ContentPreview';
 import { Col, Row } from 'react-flexbox-grid';
 
 
-export const Content = ({id, locale, preview, onClick, translate}) => {
+export const Content = ({id, preview, onClick, translate}) => {
     if (!translate) {
         console.warn('Content: No translate function found');
         return false;
     }
-    const {title, description, button} = translate(id, locale);
+    const {title, description, button} = translate(id);
     return (
         <Col className='ts-content-element' xs={12} sm={6}>
             <Row>
