@@ -26,11 +26,11 @@
 }
 
 .ts-content-preview {
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: auto;
     transition: all 0.2s ease;
 }
-
-.mobile .ts-content-preview {
-    width: 50%;
-} 
+.ts-content-element .row {
+    align-content: center;
+    justify-content: center;
+}

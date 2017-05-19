@@ -15,18 +15,18 @@ export const Content = ({id, locale, preview, onClick, translate}) => {
     return (
         <Col className='ts-content-element' xs={12} sm={6}>
             <Row>
-                <Col xs={12} sm={12}>
+                <Col>
                     {Title({title})}
                 </Col>
             </Row>
             <Row>
-                <Col xs={8} sm={8}>
+                <Col>
                     {ContentPreview({id, preview})}
                     {Description({description})}
                 </Col>
             </Row>
             <Row>
-                <Col xs={8} xsOffset={1} sm={6} smOffset={4}>
+                <Col>
                     {Button({button, id, onClick: ({target}) => onClick(target.id)})}
                 </Col>
             </Row>

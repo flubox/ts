@@ -4,8 +4,6 @@ import {factory, isDef, standardize} from '../helper';
 import ContentBuilder from '../ContentBuilder';
 import {fetchInit} from '../constants';
 import { Grid, Row } from 'react-flexbox-grid';
-var MobileDetect = require('mobile-detect'),
-md = new MobileDetect(window.navigator.userAgent);
 
 export const standardizeState = context => data => context.setState({data: data.map(standardize)});
 
@@ -17,7 +15,7 @@ export const updateStateFromFetch = context => {
 
 @autobind
 export class GridSelector extends Component {
-    state = {data: [], width: '100%'}
+    state = {data: []}
     constructor(props) {
         super(props);
     }
@@ -25,18 +23,15 @@ export class GridSelector extends Component {
         return this.props.options.resolve(target);
     }
     componentWillMount() {
-        window.addEventListener('resize', () => this.forceUpdate());
         // this.setState({width: `${document.querySelector(this.props.options.domElement).getBoundingClientRect().width}px`});
         updateStateFromFetch(this);
     }
     render() {
         const {onClick, props, state} = this;
-        const mobile = !!md.mobile();
-        const orientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
-        const className = `ts-grid-selector${mobile ? ' mobile' : ''} ${orientation}`;
+        const className = `ts-grid-selector`;
         return (
-            <Grid fluid style={{padding: 0}}>
-                <Row className={className} style={{width: state.width}}>
+            <Grid fluid>
+                <Row className={className}>
                     {factory(state.data)({onClick: props.options.resolve, ...props.options})(ContentBuilder)}
                 </Row>
             </Grid>
