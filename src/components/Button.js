@@ -1,7 +1,7 @@
 import React from 'react';
 import {isDef, props, titlelize} from '../helper';
 
-const className = 'ts-button';
+const className = 'ts-content-button';
 
 const clickable = ' ts-clickable';
 
