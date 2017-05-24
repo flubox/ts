@@ -2,6 +2,11 @@
     font: 12px arial,sans-serif;
 }
 
+.ts-content-title {
+    font: 20px arial,sans-serif;
+    line-height: 28px;
+}
+
 .ts-content-element {
     margin-bottom: 64px;
 }
