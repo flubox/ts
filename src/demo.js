@@ -42,7 +42,8 @@ const options = {
     locale: 'en_UK',
     resolve: id => console.info(`resolve id: ${id}`),
     reject: err => console.warn('err:', err),
-    translate: (id, locale) => ({...trad[id][locale], button: 'choose this theme'})
+    translate: (id, locale) => ({...trad[id][locale], button: 'choose this theme'}),
+    sort: (a, b) => Math.round((Math.random() * 2) - 1)
 };
 
 if (debug) {
