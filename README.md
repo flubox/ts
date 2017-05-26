@@ -11,6 +11,7 @@
     - ``options.resolve`` (required) : The function triggered onClick, giving the selected id
     - ``options.reject`` (required) : The function triggered on any error
     - ``options.translate`` (required) : The function used to obtain the translated texts
+    - ``options.sort`` (optional) : The function used to sort the incoming data
 
 ### Required Structure for text translation :
 
