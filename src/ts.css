@@ -3,6 +3,11 @@
     max-height: 340px;
 }
 
+.ts-content-title {
+    font: 20px arial,sans-serif;
+    line-height: 28px;
+}
+
 .ts-content-element {
     margin-bottom: 64px;
 }
