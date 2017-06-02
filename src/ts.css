@@ -16,6 +16,7 @@
     color: #595959;
     text-align: center;
     transition: all 0.2s ease;
+    margin-bottom: 32px;
 }
 
 .ts-content-button {
@@ -36,6 +37,11 @@
     height: auto;
     transition: all 0.2s ease;
 }
+
+.ts-content-preview-wrapper {
+    padding: 8px;
+}
+
 .ts-content-element .row {
     align-content: center;
     justify-content: center;
