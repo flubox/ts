@@ -44,11 +44,13 @@ export class GridSelector extends Component {
         const {onClick, props, state} = this;
         const className = `ts-grid-selector`;
         return (
-            <Grid fluid>
-                <Row className={className}>
-                    {factory(state.data)({onClick: props.options.resolve, ...props.options})(ContentBuilder)}
-                </Row>
-            </Grid>
+            <div className="container">
+                <Grid fluid>
+                    <Row className={className}>
+                        {factory(state.data)({onClick: props.options.resolve, ...props.options})(ContentBuilder)}
+                    </Row>
+                </Grid>
+            </div>
         );
     }
 };

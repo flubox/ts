@@ -10357,7 +10357,6 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
         key: 'onClick',
         value: function onClick(_ref2) {
             var target = _ref2.target;
-
             return this.props.options.resolve(target);
         }
     }, {

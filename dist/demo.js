@@ -10380,6 +10380,7 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
                     _reactFlexboxGrid.Row,
                     { className: className },
                     (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
+
                 )
             );
         }
