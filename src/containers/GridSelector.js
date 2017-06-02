@@ -13,7 +13,12 @@ export const afterFetch = context => response => response.json().then(standardiz
 
 export const checkEndpoint = context => isDef(context.props.options.endpoint);
 
-export const updateStateFromFetch = context => checkEndpoint(context) && fetch(context.props.options.endpoint, fetchInit).then(afterFetch(context)).catch(console.warn);
+export const useEndpointAsFetcher = ({props}) => typeof props.options.endpoint === 'function';
+
+export const updateStateFromFetch = context => {
+    return checkEndpoint(context) && (useEndpointAsFetcher(context) ? context.props.options.endpoint() : fetch(context.props.options.endpoint, fetchInit))
+    .then(afterFetch(context)).catch(console.warn);
+}
 
 @autobind
 export class GridSelector extends Component {
