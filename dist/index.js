@@ -2067,6 +2067,17 @@ var props = exports.props = function props(_ref2) {
   return { id: id, onClick: onClick, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: preview, type: type };
 };
 
+var imgProps = exports.imgProps = function imgProps(_ref3) {
+  var className = _ref3.className,
+      clickable = _ref3.clickable,
+      id = _ref3.id,
+      onClick = _ref3.onClick,
+      preview = _ref3.preview,
+      title = _ref3.title,
+      type = _ref3.type;
+  return { alt: title, id: id, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: preview, type: type };
+};
+
 var standardize = exports.standardize = function standardize(object) {
   return Object.keys(object).reduce(function (a, key) {
     return Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]);
@@ -10374,12 +10385,16 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
 
             var className = 'ts-grid-selector';
             return _react2.default.createElement(
-                _reactFlexboxGrid.Grid,
-                { fluid: true },
+                'div',
+                { className: 'container' },
                 _react2.default.createElement(
-                    _reactFlexboxGrid.Row,
-                    { className: className },
-                    (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
+                    _reactFlexboxGrid.Grid,
+                    { fluid: true },
+                    _react2.default.createElement(
+                        _reactFlexboxGrid.Row,
+                        { className: className },
+                        (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
+                    )
                 )
             );
         }
@@ -10648,10 +10663,12 @@ var clickable = ' ts-clickable';
 var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
     var id = _ref.id,
         preview = _ref.preview;
+
+    var props = (0, _helper.imgProps)({ className: className, clickable: clickable, id: id, preview: preview });
     return (0, _helper.isDef)(id) && (0, _helper.isDef)(preview) && _react2.default.createElement(
         'div',
         { className: 'ts-content-preview-wrapper' },
-        _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }))
+        _react2.default.createElement('img', props)
     );
 };
 
@@ -10770,6 +10787,8 @@ var _ContentPreview2 = _interopRequireDefault(_ContentPreview);
 
 var _reactFlexboxGrid = __webpack_require__(53);
 
+var _reactSimpleImage = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-simple-image\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Content = exports.Content = function Content(_ref) {
@@ -10812,7 +10831,7 @@ var Content = exports.Content = function Content(_ref) {
             _react2.default.createElement(
                 _reactFlexboxGrid.Col,
                 null,
-                (0, _ContentPreview2.default)({ id: id, preview: preview }),
+                (0, _ContentPreview2.default)({ id: id, preview: preview, title: title }),
                 (0, _Description2.default)({ description: description })
             )
         ),
