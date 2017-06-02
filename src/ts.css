@@ -46,3 +46,8 @@
     align-content: center;
     justify-content: center;
 }
+
+.ts-grid-selector {
+    max-width: 1280px;
+    margin: auto;
+}
