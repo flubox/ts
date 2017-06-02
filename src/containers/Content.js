@@ -26,7 +26,7 @@ export default ({id, locale, preview, onClick, translate, sort}) => {
             </Row>
             <Row>
                 <Col>
-                    {ContentPreview({id, preview})}
+                    {ContentPreview({id, preview, title})}
                     {Description({description})}
                 </Col>
             </Row>

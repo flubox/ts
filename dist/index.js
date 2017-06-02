@@ -2075,6 +2075,17 @@ var props = exports.props = function props(_ref2) {
   return { id: id, onClick: onClick, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: Array.isArray(preview) ? preview[0] : preview, type: type };
 };
 
+var imgProps = exports.imgProps = function imgProps(_ref3) {
+  var className = _ref3.className,
+      clickable = _ref3.clickable,
+      id = _ref3.id,
+      onClick = _ref3.onClick,
+      preview = _ref3.preview,
+      title = _ref3.title,
+      type = _ref3.type;
+  return { alt: title, id: id, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: preview, type: type };
+};
+
 var standardize = exports.standardize = function standardize(object) {
   return Object.keys(object).reduce(function (a, key) {
     return Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]);
@@ -16725,7 +16736,7 @@ exports.default = function (_ref) {
             _react2.default.createElement(
                 _reactFlexboxGrid.Col,
                 null,
-                (0, _ContentPreview2.default)({ id: id, preview: preview }),
+                (0, _ContentPreview2.default)({ id: id, preview: preview, title: title }),
                 (0, _Description2.default)({ description: description })
             )
         ),
