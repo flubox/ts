@@ -10357,6 +10357,7 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
         key: 'onClick',
         value: function onClick(_ref2) {
             var target = _ref2.target;
+
             return this.props.options.resolve(target);
         }
     }, {
@@ -10373,12 +10374,16 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
 
             var className = 'ts-grid-selector';
             return _react2.default.createElement(
-                _reactFlexboxGrid.Grid,
-                { fluid: true },
+                'div',
+                { className: 'container' },
                 _react2.default.createElement(
-                    _reactFlexboxGrid.Row,
-                    { className: className },
-                    (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
+                    _reactFlexboxGrid.Grid,
+                    { fluid: true },
+                    _react2.default.createElement(
+                        _reactFlexboxGrid.Row,
+                        { className: className },
+                        (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
+                    )
                 )
             );
         }
@@ -10626,7 +10631,7 @@ exports.default = Button;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 exports.ContentPreview = undefined;
 
@@ -10645,9 +10650,13 @@ var className = 'ts-content-preview ts-img-content-preview';
 var clickable = ' ts-clickable';
 
 var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
-  var id = _ref.id,
-      preview = _ref.preview;
-  return (0, _helper.isDef)(id) && (0, _helper.isDef)(preview) && _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }));
+    var id = _ref.id,
+        preview = _ref.preview;
+    return (0, _helper.isDef)(id) && (0, _helper.isDef)(preview) && _react2.default.createElement(
+        'div',
+        { className: 'ts-content-preview-wrapper' },
+        _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }))
+    );
 };
 
 exports.default = ContentPreview;
@@ -10706,7 +10715,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Title = exports.Title = function Title(_ref) {
   var title = _ref.title;
   return (0, _helper.isDef)(title) && _react2.default.createElement(
-    'h3',
+    'div',
     { className: 'ts-content-title' },
     (0, _helper.titlelizeAll)(title)
   );
