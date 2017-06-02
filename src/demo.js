@@ -38,7 +38,15 @@ const debug = window.location.search && !!window.location.search.match(/debug/);
 const options = {
     debug,
     domElement: '#root',
-    endpoint: 'http://localhost:8080/fakeapi',
+    // endpoint: 'http://localhost:8080/fakeapi',
+    endpoint: () => {
+        return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master')
+        .then(data => data.json())
+        .then(data => {
+            data = data.map((each, id) => ({id, url: [each.download_url]}));
+            return Promise.resolve({json: () => ({then: resolve => resolve(data)})});
+        })
+    },
     locale: 'en_UK',
     resolve: id => console.info(`resolve id: ${id}`),
     reject: err => console.warn('err:', err),
