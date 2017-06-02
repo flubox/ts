@@ -2069,7 +2069,7 @@ var props = exports.props = function props(_ref2) {
 
 var standardize = exports.standardize = function standardize(object) {
   return Object.keys(object).reduce(function (a, key) {
-    return isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]);
+    return Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]);
   }, {});
 };
 
@@ -10263,7 +10263,7 @@ module.exports = getIteratorFn;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.GridSelector = exports.updateStateFromFetch = exports.checkEndpoint = exports.afterFetch = exports.standardizeState = exports.sort = undefined;
+exports.GridSelector = exports.updateStateFromFetch = exports.useEndpointAsFetcher = exports.checkEndpoint = exports.afterFetch = exports.standardizeState = exports.sort = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -10319,8 +10319,13 @@ var checkEndpoint = exports.checkEndpoint = function checkEndpoint(context) {
     return (0, _helper.isDef)(context.props.options.endpoint);
 };
 
+var useEndpointAsFetcher = exports.useEndpointAsFetcher = function useEndpointAsFetcher(_ref) {
+    var props = _ref.props;
+    return typeof props.options.endpoint === 'function';
+};
+
 var updateStateFromFetch = exports.updateStateFromFetch = function updateStateFromFetch(context) {
-    return checkEndpoint(context) && fetch(context.props.options.endpoint, _constants.fetchInit).then(afterFetch(context)).catch(console.warn);
+    return checkEndpoint(context) && (useEndpointAsFetcher(context) ? context.props.options.endpoint() : fetch(context.props.options.endpoint, _constants.fetchInit)).then(afterFetch(context)).catch(console.warn);
 };
 
 var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_class = function (_Component) {
@@ -10350,9 +10355,8 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
 
     _createClass(GridSelector, [{
         key: 'onClick',
-        value: function onClick(_ref) {
-            var target = _ref.target;
-
+        value: function onClick(_ref2) {
+            var target = _ref2.target;
             return this.props.options.resolve(target);
         }
     }, {
@@ -10369,16 +10373,12 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
 
             var className = 'ts-grid-selector';
             return _react2.default.createElement(
-                'div',
-                { className: 'container' },
+                _reactFlexboxGrid.Grid,
+                { fluid: true },
                 _react2.default.createElement(
-                    _reactFlexboxGrid.Grid,
-                    { fluid: true },
-                    _react2.default.createElement(
-                        _reactFlexboxGrid.Row,
-                        { className: className },
-                        (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
-                    )
+                    _reactFlexboxGrid.Row,
+                    { className: className },
+                    (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
                 )
             );
         }
