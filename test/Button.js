@@ -10,7 +10,7 @@ const props = {
     onClick: console.info
 };
 
-const className = 'ts-button';
+const className = 'ts-content-button';
 
 const clickable = 'ts-clickable';
 

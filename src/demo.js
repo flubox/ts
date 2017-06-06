@@ -44,8 +44,19 @@ const options = {
         .then(data => data.json())
         .then(data => {
             data = data.map((each, id) => ({id, url: [each.download_url]}));
-            return Promise.resolve({json: () => ({then: resolve => resolve(data)})});
+            return new Promise(resolve => {
+                //Fake adjustable delay
+                setTimeout(() => {
+                    resolve({json: () => ({then: resolve => resolve(data)})});
+                }, 1);
+            });
         })
+    },
+    gaTrackingId: 'UA-100598143-1',
+    gaOptions: {
+        debug: true,
+        name: 'Theme_Selector_Preview',
+        alwaysSendReferrer: true
     },
     locale: 'en_UK',
     resolve: id => console.info(`resolve id: ${id}`),
