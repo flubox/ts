@@ -1,8 +1,13 @@
-# The Selector (ts)
+# ai-parser
 
-## Usage :
+## To allow data extraction from an Adobe Illustrator file (`some_file.ai`), please, follow the listed steps and specifications below :
+[svg options screenshot](./svg_options.png "svg options")
 
-- ``window.ts(options)`` *or* ``ts(options)``
+## Export 
+- Export to the **SVG format** (`some_file.svg`) using the following options (a screenshot is provided) :
+    - Stylisation as attributes
+    - no minification
+    - not responsive
 
 - options : 
     - ``options.debug: false`` (optional) : Display some console.log|info|warn
@@ -23,19 +28,3 @@ n.b : ``options.locale`` is no more provided to the ``options.translate(id)`` fu
 
 - ``screenResolution``: The full screen resolution of the device
 - ``viewportSize``: The viewport used in the page
-
-### Options.tracking.events : 
-
-Please, refere to ``ga.events.json`` for an exemple, or ``config.schema.json`` (``tracking``) for a full description
-
-### Required Structure for text translation :
-
-``translate(id)`` must return a structure compatible with the one below (``description`` is optional).
-
-```
-{
-    title: "a title",
-    description: "some (OPTIONAL) description, not displayed if missing",
-    button: "the text displayed inside the button"
-}
-```
