@@ -4,6 +4,12 @@ export const factory = list => props => builder => isDef(builder) && isDef(props
 
 export const getNode = selector => document => typeof selector === 'string' ? document.querySelector(selector) : selector;
 
+export const getLocale = () => window.navigator.language || window.navigator.browserLanguage || window.navigator.systemLanguage || window.navigator.userLanguage;
+
+export const getScreenResolution = () => `${window.screen.width}x${window.screen.height}`;
+
+export const getViewport = () => `${window.innerWidth}x${window.innerHeight}`;
+
 export const id = a => i => ({...a, id: i});
 
 export const isArr = item => Array.isArray(item);

@@ -6,10 +6,8 @@ const className = 'ts-content-preview ts-img-content-preview';
 
 const clickable = ' ts-clickable';
 
-export const ContentPreview = ({id, preview}) => isDef(id) && isDef(preview) && (
+export default ({id, preview}) => isDef(id) && isDef(preview) && (
     <div className="ts-content-preview-wrapper">
         <img {...props({className, clickable, id, preview})}/>
     </div>
 );
-
-export default ContentPreview;
