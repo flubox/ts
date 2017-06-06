@@ -1,15 +1,11 @@
-# ai-parser
+# The Selector (ts)
 
-## To allow data extraction from an Adobe Illustrator file (`some_file.ai`), please, follow the listed steps and specifications below :
-[svg options screenshot](./svg_options.png "svg options")
+## Usage :
 
-## Export 
-- Export to the **SVG format** (`some_file.svg`) using the following options (a screenshot is provided) :
-    - Stylisation as attributes
-    - no minification
-    - not responsive
+- ``window.ts(options)`` *or* ``ts(options)``
 
 - options : 
+<<<<<<< HEAD
     - ``options.debug: false`` (optional) : Display some console.log|info|warn
     - ``options.domElement`` (required) : The selector for a DOM element, or the DOM element itself
     - ``options.resolve`` (required) : The function triggered onClick, giving the selected id
@@ -28,3 +24,25 @@ n.b : ``options.locale`` is no more provided to the ``options.translate(id)`` fu
 
 - ``screenResolution``: The full screen resolution of the device
 - ``viewportSize``: The viewport used in the page
+=======
+    - ``options.debug`` (optional) : Display some console.log|info|warn
+    - ``options.domElement`` (required) : The selector for a DOM element, or the DOM element itself
+    - ``options.resolve`` (required) : The function triggered onClick, giving the selected id
+    - ``options.reject`` (required) : The function triggered on any error
+    - ``options.translate`` (required) : The function used to obtain the translated texts
+    - ``options.sort`` (optional) : The function used to sort the incoming data
+
+n.b : ``options.locale`` is no more provided to the ``options.translate(id)`` function, as it is assumed it will be managed somehow (be it currying, or anything else) 
+
+### Required Structure for text translation :
+
+``translate(id)`` must return a structure compatible with the one below (``description`` is optional).
+
+```
+{
+    title: "a title",
+    description: "some (OPTIONAL) description, not displayed if missing",
+    button: "the text displayed inside the button"
+}
+```
+>>>>>>> README.md updated
