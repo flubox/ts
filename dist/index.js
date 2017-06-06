@@ -10322,6 +10322,10 @@ var _ContentBuilder = __webpack_require__(94);
 
 var _ContentBuilder2 = _interopRequireDefault(_ContentBuilder);
 
+var _Loading = __webpack_require__(218);
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
 var _constants = __webpack_require__(99);
 
 var _reactFlexboxGrid = __webpack_require__(53);
@@ -10369,8 +10373,6 @@ var updateStateFromFetch = exports.updateStateFromFetch = function updateStateFr
     return checkEndpoint(context) && (useEndpointAsFetcher(context) ? context.props.options.endpoint() : fetch(context.props.options.endpoint, _constants.fetchInit)).then(afterFetch(context)).catch(console.warn);
 };
 
-var category = 'User';
-
 var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_class = function (_Component) {
     _inherits(GridSelector, _Component);
 
@@ -10382,11 +10384,11 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
         _this.state = { data: [] };
         var _props$options = props.options,
             endpoint = _props$options.endpoint,
-            gaTrackingId = _props$options.gaTrackingId,
-            gaOptions = _props$options.gaOptions,
             locale = _props$options.locale,
-            sort = _props$options.sort;
+            sort = _props$options.sort,
+            tracking = _props$options.tracking;
 
+        _this.state = _extends({}, _this.state, { name: props.options.name || _constants.name });
 
         if ((0, _helper.unDef)(endpoint)) {
             var _ret;
@@ -10402,35 +10404,39 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
             return _ret2 = false, _possibleConstructorReturn(_this, _ret2);
         }
 
-        if ((0, _helper.isDef)(gaOptions)) {
-            if ((0, _helper.unDef)(gaTrackingId)) {
+        if ((0, _helper.isDef)(tracking)) {
+            if ((0, _helper.unDef)(tracking.options)) {
                 var _ret3;
 
-                console.error('GridSelector: options.gaTrackingId is undefined');
+                console.error('GridSelector: options.tracking.options is required');
                 return _ret3 = false, _possibleConstructorReturn(_this, _ret3);
             }
-            if (typeof gaTrackingId !== 'string') {
+            if ((0, _helper.unDef)(tracking.id)) {
                 var _ret4;
 
-                console.error('GridSelector: options.gaTrackingId is no a string');
+                console.error('GridSelector: options.tracking.id is undefined');
                 return _ret4 = false, _possibleConstructorReturn(_this, _ret4);
             }
-            if (gaTrackingId.match(/UA-([\d]{4,})-([\d]{1})/) === null) {
+            if (typeof tracking.id !== 'string') {
                 var _ret5;
 
-                console.error('GridSelector: options.gaTrackingId doesn\'t match UA-XXXX-Y pattern');
+                console.error('GridSelector: options.tracking.id is no a string');
                 return _ret5 = false, _possibleConstructorReturn(_this, _ret5);
             }
-        }
+            if (tracking.id.match(/UA-([\d]{4,})-([\d]{1})/) === null) {
+                var _ret6;
 
-        if ((0, _helper.isDef)(gaTrackingId) && (0, _helper.isDef)(gaOptions)) {
-            var mixedOptions = _extends({}, gaOptions, {
-                language: (gaOptions.language || locale || (0, _helper.getLocale)()).toLowerCase().replace('_', '-'),
+                console.error('GridSelector: options.tracking.id doesn\'t match UA-XXXX-Y pattern');
+                return _ret6 = false, _possibleConstructorReturn(_this, _ret6);
+            }
+
+            var mixedOptions = _extends({}, tracking.options, {
+                language: (tracking.options.language || locale || (0, _helper.getLocale)()).toLowerCase().replace('_', '-'),
                 screenResolution: (0, _helper.getScreenResolution)(),
                 viewportSize: (0, _helper.getViewport)()
             });
             console.info('mixedOptions', mixedOptions);
-            _reactGa2.default.initialize(gaTrackingId, gaOptions);
+            _reactGa2.default.initialize(tracking.id, tracking.options);
         }
         return _this;
     }
@@ -10441,8 +10447,8 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
             var _this2 = this;
 
             _reactGa2.default.event({
-                category: category,
-                action: 'Click',
+                category: _constants.category,
+                action: 'Clicked on ' + this.state.name + ' "' + value + '"',
                 value: value,
                 hitCallback: function hitCallback() {
                     return _this2.props.options.resolve(value);
@@ -10458,8 +10464,8 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
         key: 'componentDidMount',
         value: function componentDidMount(nextProps) {
             _reactGa2.default.event({
-                category: category,
-                action: 'View Selector Page',
+                category: _constants.category,
+                action: 'View the "' + this.state.name + '" Selector Page',
                 nonInteraction: true
             });
         }
@@ -10480,7 +10486,7 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
                     _react2.default.createElement(
                         _reactFlexboxGrid.Row,
                         { className: className },
-                        (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options))(_ContentBuilder2.default)
+                        state.data.length ? (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options))(_ContentBuilder2.default) : _react2.default.createElement(_Loading2.default, null)
                     )
                 )
             );
@@ -10694,7 +10700,6 @@ exports.default = ContentBuilder;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Button = undefined;
 
 var _react = __webpack_require__(7);
 
@@ -10708,7 +10713,7 @@ var className = 'ts-content-button';
 
 var clickable = ' ts-clickable';
 
-var Button = exports.Button = function Button(_ref) {
+exports.default = function (_ref) {
   var button = _ref.button,
       id = _ref.id,
       onClick = _ref.onClick;
@@ -10718,8 +10723,6 @@ var Button = exports.Button = function Button(_ref) {
     (0, _helper.titlelize)(button)
   );
 };
-
-exports.default = Button;
 
 /***/ }),
 /* 96 */
@@ -10731,7 +10734,6 @@ exports.default = Button;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.ContentPreview = undefined;
 
 var _react = __webpack_require__(7);
 
@@ -10747,7 +10749,7 @@ var className = 'ts-content-preview ts-img-content-preview';
 
 var clickable = ' ts-clickable';
 
-var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
+exports.default = function (_ref) {
     var id = _ref.id,
         preview = _ref.preview;
     return (0, _helper.isDef)(id) && (0, _helper.isDef)(preview) && _react2.default.createElement(
@@ -10756,8 +10758,6 @@ var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
         _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }))
     );
 };
-
-exports.default = ContentPreview;
 
 /***/ }),
 /* 97 */
@@ -10769,7 +10769,6 @@ exports.default = ContentPreview;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Description = undefined;
 
 var _react = __webpack_require__(7);
 
@@ -10779,7 +10778,7 @@ var _helper = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Description = exports.Description = function Description(_ref) {
+exports.default = function (_ref) {
   var description = _ref.description;
   return (0, _helper.isDef)(description) && _react2.default.createElement(
     'div',
@@ -10787,8 +10786,6 @@ var Description = exports.Description = function Description(_ref) {
     (0, _helper.titlelize)(description)
   );
 };
-
-exports.default = Description;
 
 /***/ }),
 /* 98 */
@@ -10800,7 +10797,6 @@ exports.default = Description;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Title = undefined;
 
 var _react = __webpack_require__(7);
 
@@ -10810,7 +10806,7 @@ var _helper = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Title = exports.Title = function Title(_ref) {
+exports.default = function (_ref) {
   var title = _ref.title;
   return (0, _helper.isDef)(title) && _react2.default.createElement(
     'div',
@@ -10818,8 +10814,6 @@ var Title = exports.Title = function Title(_ref) {
     (0, _helper.titlelizeAll)(title)
   );
 };
-
-exports.default = Title;
 
 /***/ }),
 /* 99 */
@@ -10835,6 +10829,8 @@ var headers = exports.headers = new Headers({ 'Accept': 'application/json' });
 var method = exports.method = 'GET';
 var mode = exports.mode = 'cors';
 var fetchInit = exports.fetchInit = { method: method, headers: headers, mode: mode };
+var category = exports.category = 'User';
+var name = exports.name = 'Theme';
 
 /***/ }),
 /* 100 */
@@ -10846,7 +10842,6 @@ var fetchInit = exports.fetchInit = { method: method, headers: headers, mode: mo
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Content = undefined;
 
 var _react = __webpack_require__(7);
 
@@ -10874,7 +10869,7 @@ var _reactFlexboxGrid = __webpack_require__(53);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Content = exports.Content = function Content(_ref) {
+exports.default = function (_ref) {
     var id = _ref.id,
         locale = _ref.locale,
         preview = _ref.preview,
@@ -10932,8 +10927,6 @@ var Content = exports.Content = function Content(_ref) {
         )
     );
 };
-
-exports.default = Content;
 
 /***/ }),
 /* 101 */
@@ -25139,6 +25132,40 @@ if(false) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 217 */,
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+    return _react2.default.createElement(
+        "div",
+        { className: "sk-cube-grid" },
+        _react2.default.createElement("div", { className: "sk-cube sk-cube1" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube2" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube3" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube4" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube5" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube6" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube7" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube8" }),
+        _react2.default.createElement("div", { className: "sk-cube sk-cube9" })
+    );
+};
 
 /***/ })
 /******/ ]);

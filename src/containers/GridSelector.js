@@ -2,7 +2,8 @@ import React, {PropTypes, Component} from 'react';
 import autobind from 'autobind-decorator';
 import {factory, getLocale, getScreenResolution, getViewport, isDef, standardize, unDef} from '../helper';
 import ContentBuilder from '../ContentBuilder';
-import {fetchInit} from '../constants';
+import Loading from '../components/Loading';
+import {category, fetchInit, name} from '../constants';
 import { Grid, Row } from 'react-flexbox-grid';
 import ReactGA from 'react-ga';
 
@@ -21,14 +22,13 @@ export const updateStateFromFetch = context => {
     .then(afterFetch(context)).catch(console.warn);
 }
 
-const category = 'User';
-
 @autobind
 export class GridSelector extends Component {
     state = {data: []}
     constructor(props) {
         super(props);
-        const {endpoint, gaTrackingId, gaOptions, locale, sort} = props.options;
+        const {endpoint, locale, sort, tracking} = props.options;
+        this.state = {...this.state, name: props.options.name || name};
 
         if (unDef(endpoint)) {
             console.error('GridSelector: No endpoint found');
@@ -40,36 +40,38 @@ export class GridSelector extends Component {
             return false;
         }
 
-        if (isDef(gaOptions)) {
-            if (unDef(gaTrackingId)) {
-                console.error('GridSelector: options.gaTrackingId is undefined');
+        if (isDef(tracking)) {
+            if (unDef(tracking.options)) {
+                console.error('GridSelector: options.tracking.options is required');
                 return false;
             }
-            if (typeof gaTrackingId !== 'string') {
-                console.error('GridSelector: options.gaTrackingId is no a string');
+            if (unDef(tracking.id)) {
+                console.error('GridSelector: options.tracking.id is undefined');
                 return false;
             }
-            if (gaTrackingId.match(/UA-([\d]{4,})-([\d]{1})/) === null) {
-                console.error('GridSelector: options.gaTrackingId doesn\'t match UA-XXXX-Y pattern');
+            if (typeof tracking.id !== 'string') {
+                console.error('GridSelector: options.tracking.id is no a string');
                 return false;
             }
-        }
+            if (tracking.id.match(/UA-([\d]{4,})-([\d]{1})/) === null) {
+                console.error('GridSelector: options.tracking.id doesn\'t match UA-XXXX-Y pattern');
+                return false;
+            }
 
-        if (isDef(gaTrackingId) && isDef(gaOptions)) {
             const mixedOptions = {
-                ...gaOptions,
-                language: (gaOptions.language || locale || getLocale()).toLowerCase().replace('_', '-'),
+                ...tracking.options,
+                language: (tracking.options.language || locale || getLocale()).toLowerCase().replace('_', '-'),
                 screenResolution: getScreenResolution(),
                 viewportSize: getViewport()
             };
             console.info('mixedOptions', mixedOptions);
-            ReactGA.initialize(gaTrackingId, gaOptions);
+            ReactGA.initialize(tracking.id, tracking.options);
         }
     }
     onClick(value) {
         ReactGA.event({
             category,
-            action: 'Click',
+            action: `Clicked on ${this.state.name} "${value}"`,
             value,
             hitCallback: () => this.props.options.resolve(value)
         });
@@ -80,7 +82,7 @@ export class GridSelector extends Component {
     componentDidMount(nextProps) {
         ReactGA.event({
             category,
-            action: 'View Selector Page',
+            action: `View the "${this.state.name}" Selector Page`,
             nonInteraction: true
         });
     }
@@ -91,7 +93,7 @@ export class GridSelector extends Component {
             <div className="container">
                 <Grid fluid>
                     <Row className={className}>
-                        {factory(state.data)({onClick: this.onClick, ...props.options})(ContentBuilder)}
+                        {state.data.length ? factory(state.data)({onClick: this.onClick, ...props.options})(ContentBuilder):<Loading/>}
                     </Row>
                 </Grid>
             </div>
