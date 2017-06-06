@@ -64,6 +64,12 @@ const options = {
             });
         });
     },
+    gaTrackingId: 'UA-100598143-1',
+    gaOptions: {
+        debug: true,
+        name: 'Theme_Selector_Preview',
+        alwaysSendReferrer: true
+    },
     locale: 'en_UK',
     resolve: id => console.info(`resolve id: ${id}`),
     reject: err => console.warn('err:', err),
