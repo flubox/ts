@@ -9,6 +9,7 @@
     - ``options.domElement`` (required) : The selector for a DOM element, or the DOM element itself
     - ``options.gaTrackingId`` (optional) : The Google Analytics tracking id used for events tracking. If provided, enable automatically events tracking.
     - ``options.gaOptions`` (optional if no `gaTrackingId`, required otherwise) : Google Analytics options used during initialization. see [Analytics.js Field Reference](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference)
+    - ``options.locale`` (optional) : Used only for the Google Analytics options.
     - ``options.resolve`` (required) : The function triggered onClick, giving the selected id
     - ``options.reject`` (required) : The function triggered on any error
     - ``options.translate`` (required) : The function used to obtain the translated texts
