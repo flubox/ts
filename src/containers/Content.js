@@ -7,7 +7,7 @@ import ContentPreview from '../components/ContentPreview';
 import { Col, Row } from 'react-flexbox-grid';
 
 
-export const Content = ({id, locale, preview, onClick, translate, sort}) => {
+export default ({id, locale, preview, onClick, translate, sort}) => {
     if (unDef(onClick)) {
         console.error('Content: No onClick function found');
         return false;
@@ -38,5 +38,3 @@ export const Content = ({id, locale, preview, onClick, translate, sort}) => {
         </Col>
     );
 };
-
-export default Content;
