@@ -1,0 +1,9 @@
+{
+    "onClick": {
+        "event": "click",
+        "category": "User",
+        "action": "CTA",
+        "label": "Click on a theme",
+        "nonInteraction": false
+    }
+}
