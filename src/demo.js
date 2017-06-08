@@ -51,6 +51,7 @@ const options = {
         //         }, 1000);
         //     });
         // });
+
         // Using github
         return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master')
         .then(data => data.json())
@@ -87,7 +88,7 @@ const options = {
             alwaysSendReferrer: true
         }
     },
-    translate: (id, locale) => ({...trad[id][locale], button: 'choose this theme'})
+    translate: (id) => ({...trad[id]['en_UK'], button: 'choose this theme'})
 };
 
 if (debug) {
