@@ -5,7 +5,6 @@
 - ``window.ts(options)`` *or* ``ts(options)``
 
 - options : 
-<<<<<<< HEAD
     - ``options.debug: false`` (optional) : Display some console.log|info|warn
     - ``options.domElement`` (required) : The selector for a DOM element, or the DOM element itself
     - ``options.resolve`` (required) : The function triggered onClick, giving the selected id
@@ -24,15 +23,10 @@ n.b : ``options.locale`` is no more provided to the ``options.translate(id)`` fu
 
 - ``screenResolution``: The full screen resolution of the device
 - ``viewportSize``: The viewport used in the page
-=======
-    - ``options.debug`` (optional) : Display some console.log|info|warn
-    - ``options.domElement`` (required) : The selector for a DOM element, or the DOM element itself
-    - ``options.resolve`` (required) : The function triggered onClick, giving the selected id
-    - ``options.reject`` (required) : The function triggered on any error
-    - ``options.translate`` (required) : The function used to obtain the translated texts
-    - ``options.sort`` (optional) : The function used to sort the incoming data
 
-n.b : ``options.locale`` is no more provided to the ``options.translate(id)`` function, as it is assumed it will be managed somehow (be it currying, or anything else) 
+### Options.tracking.events : 
+
+Please, refere to ``ga.events.json`` for an exemple, or ``config.schema.json`` (``tracking``) for a full description
 
 ### Required Structure for text translation :
 
@@ -45,4 +39,3 @@ n.b : ``options.locale`` is no more provided to the ``options.translate(id)`` fu
     button: "the text displayed inside the button"
 }
 ```
->>>>>>> README.md updated

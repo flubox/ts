@@ -26,6 +26,8 @@ export const props = ({className, clickable, id, onClick, preview, type}) => ({i
 
 export const imgProps = ({className, clickable, id, onClick, preview, title, type}) => ({alt: title, id, className: `${className}${clickable && onClick ? clickable : ''}`, data: preview, key: `${id}${preview}`, src: preview, type });
 
+export const imgProps = ({className, clickable, id, onClick, preview, title, type}) => ({alt: title, id, className: `${className}${clickable && onClick ? clickable : ''}`, data: preview, key: `${id}${preview}`, src: preview, type });
+
 export const standardize = object => Object.keys(object).reduce((a, key) => Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]), {});
 
 export const titlelize = text => `${text.substr(0, 1).toUpperCase()}${text.substr(1)}`;
