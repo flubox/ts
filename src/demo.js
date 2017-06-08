@@ -33,7 +33,7 @@ const trad = {
     }
 };
 
-const debug = window.location.search && !!window.location.search.match(/debug/);
+const debug = Boolean(window.location.search && !!window.location.search.match(/debug/));
 
 const options = {
     debug,
@@ -44,7 +44,7 @@ const options = {
         // return fetch('http://localhost:8080/fakeapi')
         // .then(data => data.json())
         // .then(data => {
-        //     console.info('data', data);
+        //     if (debug) console.info('data', data);
         //     return new Promise(resolve => {
         //         setTimeout(() => {
         //             resolve({json: () => ({then: resolve => resolve(data)})});
@@ -64,19 +64,30 @@ const options = {
             });
         });
     },
+    gaTrackingId: 'UA-100598143-1',
+    gaOptions: {
+        debug: true,
+        name: 'Theme_Selector_Preview',
+        alwaysSendReferrer: true
+    },
     locale: 'en_UK',
     resolve: id => console.info(`resolve id: ${id}`),
     reject: err => console.warn('err:', err),
-    translate: (id, locale) => ({...trad[id][locale], button: 'choose this theme'}),
     sort: (a, b) => Math.round((Math.random() * 2) - 1),
     tracking: {
         id: 'UA-100598143-1',
+        events: {
+            onLoaded: {
+                event: "view",
+                category: "User",
+                action: "View the themes"
+            }
+        },
         options: {
-            debug: true,
-            name: 'Theme_Selector_Preview',
             alwaysSendReferrer: true
         }
-    }
+    },
+    translate: (id, locale) => ({...trad[id][locale], button: 'choose this theme'})
 };
 
 if (debug) {
