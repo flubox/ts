@@ -33339,11 +33339,25 @@ var options = {
     // endpoint: 'http://localhost:8080/fakeapi',
     endpoint: function endpoint() {
         // Using local fakeapi after `npm run api`
-        return fetch('http://localhost:8080/fakeapi').then(function (data) {
+        // return fetch('http://localhost:8080/fakeapi')
+        // .then(data => data.json())
+        // .then(data => {
+        //     if (debug) console.info('data', data);
+        //     return new Promise(resolve => {
+        //         setTimeout(() => {
+        //             resolve({json: () => ({then: resolve => resolve(data)})});
+        //         }, 1000);
+        //     });
+        // });
+        // Using github
+        return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master').then(function (data) {
             return data.json();
         }).then(function (data) {
-            if (debug) console.info('data', data);
+            data = data.map(function (each, id) {
+                return { id: id, url: [each.download_url] };
+            });
             return new Promise(function (resolve) {
+                //Fake adjustable delay
                 setTimeout(function () {
                     resolve({ json: function json() {
                             return { then: function then(resolve) {
@@ -33353,18 +33367,6 @@ var options = {
                 }, 1000);
             });
         });
-        // Using github
-        // return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master')
-        // .then(data => data.json())
-        // .then(data => {
-        //     data = data.map((each, id) => ({id, url: [each.download_url]}));
-        //     return new Promise(resolve => {
-        //         //Fake adjustable delay
-        //         setTimeout(() => {
-        //             resolve({json: () => ({then: resolve => resolve(data)})});
-        //         }, 1000);
-        //     });
-        // });
     },
     gaTrackingId: 'UA-100598143-1',
     gaOptions: {
