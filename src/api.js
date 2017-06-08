@@ -1,9 +1,9 @@
 var restify = require('restify');
-var db = require('./demo.json');
 var fs = require('fs');
-var img = fs.readdirSync(__dirname + '/../demo/');
-console.info('...', 'img', img);
- 
+var imgList = fs.readdirSync(__dirname + '/../demo/').map((url, id) => ({id, url: ['http://localhost:8080/fakeimg/' + url, 'http://localhost:8080/fakeimg/' + url]}));
+fs.writeFileSync(__dirname + '/demo.json', JSON.stringify(imgList));
+var db = require('./demo.json');
+
 var server = restify.createServer({
   name: 'fake api',
   version: '1.0.0'
