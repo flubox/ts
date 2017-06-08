@@ -1,6 +1,16 @@
 var restify = require('restify');
 var fs = require('fs');
-var imgList = fs.readdirSync(__dirname + '/../demo/').map((url, id) => ({id, url: ['http://localhost:8080/fakeimg/' + url, 'http://localhost:8080/fakeimg/' + url]}));
+var a = 'http://localhost:8080/fakeimg/';
+var imgList = fs.readdirSync(__dirname + '/../demo/')
+.filter(f => f.match(/\.png$/))
+.sort().reverse()
+.reduce((accumulator, current, index, all) => {
+  if (index % 2 === 0) {
+    return accumulator.concat([{id: index / 2, url: [a + current, a + all[index + 1]]}]);
+  }
+  return accumulator;
+}, [])
+;
 fs.writeFileSync(__dirname + '/demo.json', JSON.stringify(imgList));
 var db = require('./demo.json');
 
