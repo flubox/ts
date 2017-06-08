@@ -4,6 +4,10 @@ export const factory = list => props => builder => isDef(builder) && isDef(props
 
 export const getNode = selector => document => typeof selector === 'string' ? document.querySelector(selector) : selector;
 
+export const getScreenResolution = () => `${window.screen.width}x${window.screen.height}`;
+
+export const getViewport = () => `${window.innerWidth}x${window.innerHeight}`;
+
 export const id = a => i => ({...a, id: i});
 
 export const isArr = item => Array.isArray(item);
@@ -18,7 +22,7 @@ export const mergeByKeys = object => (accumulator, k) => ({...accumulator, [k]: 
 
 export const preview = a => p => ({...a, preview: p});
 
-export const props = ({className, clickable, id, onClick, preview, type}) => ({id, onClick, className: `${className}${clickable && onClick ? clickable : ''}`, data: preview, key: `${id}${preview}`, src: preview, type });
+export const props = ({className, clickable, id, onClick, preview, type}) => ({id, onClick, className: `${className}${clickable && onClick ? clickable : ''}`, data: preview, key: `${id}${preview}`, src: Array.isArray(preview) ? preview[0] : preview, type });
 
 export const standardize = object => Object.keys(object).reduce((a, key) => Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]), {});
 

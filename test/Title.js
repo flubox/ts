@@ -12,7 +12,7 @@ test('Title without props return null', t => t.is(shallow(<Title/>).type(), null
 
 test('Title without "title" text return null', t => t.is(shallow(<Title {...props} title={undefined}/>).type(), null));
 
-test('Title is a div', t => t.is(shallow(<Title {...props}/>).type(), 'h3'));
+test('Title is a div', t => t.is(shallow(<Title {...props}/>).type(), 'div'));
 
 test(`Title has class name: "${className}"`, t => t.true(shallow(<Title {...props}/>).hasClass(className)));
 
