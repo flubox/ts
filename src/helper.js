@@ -24,7 +24,7 @@ export const preview = a => p => ({...a, preview: p});
 
 export const props = ({className, clickable, id, onClick, preview, type}) => ({id, onClick, className: `${className}${clickable && onClick ? clickable : ''}`, data: preview, key: `${id}${preview}`, src: Array.isArray(preview) ? preview[0] : preview, type });
 
-export const imgProps = ({className, clickable, id, onClick, preview, title, type}) => ({alt: title, id, className: `${className}${clickable && onClick ? clickable : ''}`, data: preview, key: `${id}${preview}`, src: preview, type });
+export const imgProps = ({className, clickable, id, onClick, preview, srcSet}) => ({id, onClick, className: `${className}${clickable && onClick ? clickable : ''}`, key: `${id}${preview}`, src: Array.isArray(preview) ? preview[0] : preview, srcSet: preview.map((url, i) => `${url} ${srcSet[i]}`).join(',')});
 
 export const standardize = object => Object.keys(object).reduce((a, key) => Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]), {});
 
