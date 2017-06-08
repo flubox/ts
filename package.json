@@ -51,6 +51,7 @@
     "webpack": "^2.5.1"
   },
   "dependencies": {
+    "ajv": "^5.1.5",
     "autobind-decorator": "^1.4.0",
     "babel": "^6.23.0",
     "css-loader": "^0.28.1",
