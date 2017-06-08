@@ -2086,17 +2086,6 @@ var imgProps = exports.imgProps = function imgProps(_ref3) {
   return { alt: title, id: id, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: preview, type: type };
 };
 
-var imgProps = exports.imgProps = function imgProps(_ref3) {
-  var className = _ref3.className,
-      clickable = _ref3.clickable,
-      id = _ref3.id,
-      onClick = _ref3.onClick,
-      preview = _ref3.preview,
-      title = _ref3.title,
-      type = _ref3.type;
-  return { alt: title, id: id, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: preview, type: type };
-};
-
 var standardize = exports.standardize = function standardize(object) {
   return Object.keys(object).reduce(function (a, key) {
     return Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]);
@@ -16193,27 +16182,8 @@ function addKeyword(keyword, definition) {
   if (RULES.keywords[keyword])
     throw new Error('Keyword ' + keyword + ' is already defined');
 
-<<<<<<< HEAD
   if (!IDENTIFIER.test(keyword))
     throw new Error('Keyword ' + keyword + ' is not a valid identifier');
-=======
-            var className = 'ts-grid-selector';
-            return _react2.default.createElement(
-                'div',
-                { className: 'container' },
-                _react2.default.createElement(
-                    _reactFlexboxGrid.Grid,
-                    { fluid: true },
-                    _react2.default.createElement(
-                        _reactFlexboxGrid.Row,
-                        { className: className },
-                        (0, _helper.factory)(state.data)(_extends({ onClick: props.options.resolve }, props.options))(_ContentBuilder2.default)
-                    )
-                )
-            );
-        }
-    }]);
->>>>>>> 3b03191c62118988a8c68a19efb8e6b650c423a4
 
   if (definition) {
     if (definition.macro && definition.valid !== undefined)
@@ -17180,22 +17150,8 @@ function factory(ReactComponent, isValidElement, ReactNoopUpdateQueue) {
     _invariant(typeof spec !== 'function', 'ReactClass: You\'re attempting to ' + 'use a component class or function as a mixin. Instead, just use a ' + 'regular object.');
     _invariant(!isValidElement(spec), 'ReactClass: You\'re attempting to ' + 'use a component as a mixin. Instead, just use a regular object.');
 
-<<<<<<< HEAD
     var proto = Constructor.prototype;
     var autoBindPairs = proto.__reactAutoBindPairs;
-=======
-var ContentPreview = exports.ContentPreview = function ContentPreview(_ref) {
-    var id = _ref.id,
-        preview = _ref.preview;
-
-    var props = (0, _helper.imgProps)({ className: className, clickable: clickable, id: id, preview: preview });
-    return (0, _helper.isDef)(id) && (0, _helper.isDef)(preview) && _react2.default.createElement(
-        'div',
-        { className: 'ts-content-preview-wrapper' },
-        _react2.default.createElement('img', props)
-    );
-};
->>>>>>> 3b03191c62118988a8c68a19efb8e6b650c423a4
 
     // By handling mixins before any other properties, we ensure the same
     // chaining order is applied to methods with DEFINE_MANY policy, whether
@@ -17546,12 +17502,6 @@ module.exports = factory;
  *
  */
 
-<<<<<<< HEAD
-=======
-var _reactSimpleImage = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-simple-image\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
->>>>>>> 3b03191c62118988a8c68a19efb8e6b650c423a4
 
 
 var React = __webpack_require__(7);
@@ -17560,50 +17510,11 @@ var factory = __webpack_require__(143);
 // Hack to grab NoopUpdateQueue from isomorphic React
 var ReactNoopUpdateQueue = new React.Component().updater;
 
-<<<<<<< HEAD
 module.exports = factory(
   React.Component,
   React.isValidElement,
   ReactNoopUpdateQueue
 );
-=======
-    return _react2.default.createElement(
-        _reactFlexboxGrid.Col,
-        { className: 'ts-content-element', xs: 12, sm: 6 },
-        _react2.default.createElement(
-            _reactFlexboxGrid.Row,
-            null,
-            _react2.default.createElement(
-                _reactFlexboxGrid.Col,
-                null,
-                (0, _Title2.default)({ title: title })
-            )
-        ),
-        _react2.default.createElement(
-            _reactFlexboxGrid.Row,
-            null,
-            _react2.default.createElement(
-                _reactFlexboxGrid.Col,
-                null,
-                (0, _ContentPreview2.default)({ id: id, preview: preview, title: title }),
-                (0, _Description2.default)({ description: description })
-            )
-        ),
-        _react2.default.createElement(
-            _reactFlexboxGrid.Row,
-            null,
-            _react2.default.createElement(
-                _reactFlexboxGrid.Col,
-                null,
-                (0, _Button2.default)({ button: button, id: id, onClick: function onClick(_ref2) {
-                        var target = _ref2.target;
-                        return _onClick(target.id);
-                    } })
-            )
-        )
-    );
-};
->>>>>>> 3b03191c62118988a8c68a19efb8e6b650c423a4
 
 
 /***/ }),
