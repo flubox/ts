@@ -16715,7 +16715,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (_ref) {
     var id = _ref.id,
-        locale = _ref.locale,
         preview = _ref.preview,
         _onClick = _ref.onClick,
         translate = _ref.translate,
@@ -16730,7 +16729,7 @@ exports.default = function (_ref) {
         return false;
     }
 
-    var _translate = translate(id, locale),
+    var _translate = translate(id),
         title = _translate.title,
         description = _translate.description,
         button = _translate.button;
