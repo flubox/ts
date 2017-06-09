@@ -7,7 +7,7 @@ import ContentPreview from '../components/ContentPreview';
 import { Col, Row } from 'react-flexbox-grid';
 
 
-export default ({id, preview, onClick, translate, sort}) => {
+export default ({id, preview, onClick, translate, sort, srcSet}) => {
     if (unDef(onClick)) {
         console.error('Content: No onClick function found');
         return false;
@@ -26,7 +26,7 @@ export default ({id, preview, onClick, translate, sort}) => {
             </Row>
             <Row>
                 <Col>
-                    {ContentPreview({id, preview})}
+                    {ContentPreview({id, preview, srcSet, title})}
                     {Description({description})}
                 </Col>
             </Row>

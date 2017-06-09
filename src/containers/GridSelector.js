@@ -7,6 +7,7 @@ import {category, fetchInit, name} from '../constants';
 import { Grid, Row } from 'react-flexbox-grid';
 import ReactGA from 'react-ga';
 
+const srcSet = require('../../srcSet.json');
 const configSchema = require('../../config.schema.json');
 const events = require('../../ga.events.json');
 const Ajv = require('ajv');
@@ -79,7 +80,7 @@ export class GridSelector extends Component {
             <div className="container">
                 <Grid fluid>
                     <Row className={className}>
-                        {state.data.length ? factory(state.data)({onClick: this.onClick, ...props.options})(ContentBuilder):<Loading/>}
+                        {state.data.length ? factory(state.data)({onClick: this.onClick, ...props.options, srcSet})(ContentBuilder):<Loading/>}
                     </Row>
                 </Grid>
             </div>

@@ -2075,6 +2075,18 @@ var props = exports.props = function props(_ref2) {
   return { id: id, onClick: onClick, className: '' + className + (clickable && onClick ? clickable : ''), data: preview, key: '' + id + preview, src: Array.isArray(preview) ? preview[0] : preview, type: type };
 };
 
+var imgProps = exports.imgProps = function imgProps(_ref3) {
+  var className = _ref3.className,
+      clickable = _ref3.clickable,
+      id = _ref3.id,
+      onClick = _ref3.onClick,
+      preview = _ref3.preview,
+      srcSet = _ref3.srcSet;
+  return { id: id, onClick: onClick, className: '' + className + (clickable && onClick ? clickable : ''), key: '' + id + preview, src: Array.isArray(preview) ? preview[0] : preview, srcSet: preview.map(function (url, i) {
+      return url + ' ' + srcSet[i];
+    }).join(',') };
+};
+
 var standardize = exports.standardize = function standardize(object) {
   return Object.keys(object).reduce(function (a, key) {
     return Array.isArray(object[key]) || isUrl(object[key]) ? preview(a)(object[key]) : id(a)(object[key]);
@@ -12232,6 +12244,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var srcSet = __webpack_require__(167);
 var configSchema = __webpack_require__(163);
 var events = __webpack_require__(164);
 var Ajv = __webpack_require__(107);
@@ -12351,7 +12364,7 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
                     _react2.default.createElement(
                         _reactFlexboxGrid.Row,
                         { className: className },
-                        state.data.length ? (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options))(_ContentBuilder2.default) : _react2.default.createElement(_Loading2.default, null)
+                        state.data.length ? (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options, { srcSet: srcSet }))(_ContentBuilder2.default) : _react2.default.createElement(_Loading2.default, null)
                     )
                 )
             );
@@ -16558,7 +16571,8 @@ var clickable = ' ts-clickable';
 
 exports.default = function (_ref) {
     var id = _ref.id,
-        preview = _ref.preview;
+        preview = _ref.preview,
+        srcSet = _ref.srcSet;
 
     if ((0, _helper.unDef)(id) || (0, _helper.unDef)(preview)) {
         return false;
@@ -16566,7 +16580,7 @@ exports.default = function (_ref) {
     return _react2.default.createElement(
         'div',
         { className: 'ts-content-preview-wrapper' },
-        _react2.default.createElement('img', (0, _helper.props)({ className: className, clickable: clickable, id: id, preview: preview }))
+        _react2.default.createElement('img', (0, _helper.imgProps)({ className: className, clickable: clickable, id: id, preview: preview, srcSet: srcSet }))
     );
 };
 
@@ -16718,7 +16732,8 @@ exports.default = function (_ref) {
         preview = _ref.preview,
         _onClick = _ref.onClick,
         translate = _ref.translate,
-        sort = _ref.sort;
+        sort = _ref.sort,
+        srcSet = _ref.srcSet;
 
     if ((0, _helper.unDef)(_onClick)) {
         console.error('Content: No onClick function found');
@@ -16752,7 +16767,7 @@ exports.default = function (_ref) {
             _react2.default.createElement(
                 _reactFlexboxGrid.Col,
                 null,
-                (0, _ContentPreview2.default)({ id: id, preview: preview }),
+                (0, _ContentPreview2.default)({ id: id, preview: preview, srcSet: srcSet, title: title }),
                 (0, _Description2.default)({ description: description })
             )
         ),
@@ -18706,7 +18721,15 @@ module.exports = {
 };
 
 /***/ }),
-/* 167 */,
+/* 167 */
+/***/ (function(module, exports) {
+
+module.exports = [
+	"1200w",
+	"1400w"
+];
+
+/***/ }),
 /* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 

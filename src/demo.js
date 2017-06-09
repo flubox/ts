@@ -39,6 +39,7 @@ const options = {
         //         }, 1000);
         //     });
         // });
+
         // Using github
         return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master')
         .then(data => data.json())
