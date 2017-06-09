@@ -33326,34 +33326,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var trad = {
     "0": {
-        "en_UK": {
-            "title": "lorem"
-        }
+        "title": "lorem"
     },
     "1": {
-        "en_UK": {
-            "title": "ipsum"
-        }
+        "title": "ipsum"
     },
     "2": {
-        "en_UK": {
-            "title": "dolor"
-        }
+        "title": "dolor"
     },
     "3": {
-        "en_UK": {
-            "title": "sit"
-        }
+        "title": "sit"
     },
     "4": {
-        "en_UK": {
-            "title": "amet"
-        }
+        "title": "amet"
     },
     "5": {
-        "en_UK": {
-            "title": "consectetur"
-        }
+        "title": "consectetur"
     }
 };
 
@@ -33401,7 +33389,6 @@ var options = {
         name: 'Theme_Selector_Preview',
         alwaysSendReferrer: true
     },
-    locale: 'en_UK',
     resolve: function resolve(id) {
         return console.info("resolve id: " + id);
     },
@@ -33425,7 +33412,7 @@ var options = {
         }
     },
     translate: function translate(id) {
-        return _extends({}, trad[id]['en_UK'], { button: 'choose this theme' });
+        return _extends({}, trad[id], { button: 'choose this theme' });
     }
 };
 
