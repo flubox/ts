@@ -33368,9 +33368,17 @@ var options = {
         return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master').then(function (data) {
             return data.json();
         }).then(function (data) {
-            data = data.map(function (each, id) {
-                return { id: id, url: [each.download_url] };
-            });
+            data = data.map(function (_ref) {
+                var download_url = _ref.download_url;
+                return download_url;
+            }).filter(function (url) {
+                return url.match(/\.png$/);
+            }).sort().reverse().reduce(function (accumulator, current, index, all) {
+                if (index % 2 === 0) {
+                    return accumulator.concat([{ id: index / 2, url: [current, all[index + 1]] }]);
+                }
+                return accumulator;
+            }, []);
             return new Promise(function (resolve) {
                 //Fake adjustable delay
                 setTimeout(function () {
