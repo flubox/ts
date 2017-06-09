@@ -44,7 +44,15 @@ const options = {
         return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master')
         .then(data => data.json())
         .then(data => {
-            data = data.map((each, id) => ({id, url: [each.download_url]}));
+            data = data.map(({download_url}) => download_url).filter(url => url.match(/\.png$/))
+            .sort().reverse()
+            .reduce((accumulator, current, index, all) => {
+                if (index % 2 === 0) {
+                    return accumulator.concat([{id: index / 2, url: [current, all[index + 1]]}]);
+                }
+                return accumulator;
+            }, [])
+            ;
             return new Promise(resolve => {
                 //Fake adjustable delay
                 setTimeout(() => {
