@@ -2,34 +2,22 @@ import ts from './index';
 
 const trad = {
     "0": {
-        "en_UK": {
-            "title": "lorem"
-        }
+        "title": "lorem"
     },
     "1": {
-        "en_UK": {
-            "title": "ipsum"
-        }
+        "title": "ipsum"
     },
     "2": {
-        "en_UK": {
-            "title": "dolor"
-        }
+        "title": "dolor"
     },
     "3": {
-        "en_UK": {
-            "title": "sit"
-        }
+        "title": "sit"
     },
     "4": {
-        "en_UK": {
-            "title": "amet"
-        }
+        "title": "amet"
     },
     "5": {
-        "en_UK": {
-            "title": "consectetur"
-        }
+        "title": "consectetur"
     }
 };
 
@@ -71,7 +59,6 @@ const options = {
         name: 'Theme_Selector_Preview',
         alwaysSendReferrer: true
     },
-    locale: 'en_UK',
     resolve: id => console.info(`resolve id: ${id}`),
     reject: err => console.warn('err:', err),
     sort: (a, b) => Math.round((Math.random() * 2) - 1),
@@ -88,7 +75,7 @@ const options = {
             alwaysSendReferrer: true
         }
     },
-    translate: (id) => ({...trad[id]['en_UK'], button: 'choose this theme'})
+    translate: (id) => ({...trad[id], button: 'choose this theme'})
 };
 
 if (debug) {
