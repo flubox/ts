@@ -18,6 +18,12 @@ const trad = {
     },
     "5": {
         "title": "consectetur"
+    },
+    "6": {
+        "title": "adipiscing"
+    },
+    "7": {
+        "title": "elit"
     }
 };
 
