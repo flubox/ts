@@ -46,6 +46,7 @@
 .ts-content-element .row {
     align-content: center;
     justify-content: center;
+    min-height: 48px;
 }
 
 .ts-grid-selector.row {
