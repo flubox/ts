@@ -12329,16 +12329,12 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
 
             var className = 'ts-grid-selector';
             return _react2.default.createElement(
-                'div',
-                { className: 'container' },
+                _reactFlexboxGrid.Grid,
+                null,
                 _react2.default.createElement(
-                    _reactFlexboxGrid.Grid,
-                    { fluid: true },
-                    _react2.default.createElement(
-                        _reactFlexboxGrid.Row,
-                        { className: className },
-                        state.data.length ? (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options, { srcSet: srcSet }))(_ContentBuilder2.default) : _react2.default.createElement(_Loading2.default, null)
-                    )
+                    _reactFlexboxGrid.Row,
+                    { className: className },
+                    state.data.length ? (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options, { srcSet: srcSet }))(_ContentBuilder2.default) : _react2.default.createElement(_Loading2.default, null)
                 )
             );
         }
