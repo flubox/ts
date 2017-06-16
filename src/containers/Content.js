@@ -25,7 +25,7 @@ export default ({id, preview, onClick, translate, sort, srcSet}) => {
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col xs={12}>
                     {ContentPreview({id, preview, srcSet, title})}
                     {Description({description})}
                 </Col>
