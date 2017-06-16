@@ -45,6 +45,7 @@
 
 .ts-content-preview-wrapper {
     padding: 8px;
+    min-height: 200px;
 }
 
 .ts-content-element .row {
