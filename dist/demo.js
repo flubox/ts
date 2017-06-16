@@ -33321,26 +33321,15 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var trad = {
-    "0": {
-        "title": "lorem"
-    },
-    "1": {
-        "title": "ipsum"
-    },
-    "2": {
-        "title": "dolor"
-    },
-    "3": {
-        "title": "sit"
-    },
-    "4": {
-        "title": "amet"
-    },
-    "5": {
-        "title": "consectetur"
-    }
-};
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var trad = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum lacus ac sem dignissim, quis porttitor ligula facilisis. Nam porttitor, lacus ac ultrices mollis, felis lectus interdum purus, ut suscipit urna dolor et enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean mattis tortor nec eros porta vulputate. Nam aliquet nulla at augue faucibus, et congue lacus vehicula. Praesent nec erat et velit cursus luctus. Integer sodales a neque ac ullamcorper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vel est malesuada, congue sem vitae, dapibus elit.'.replace(/[\.,+]/, '').split(' ').map(function (t) {
+    return { title: t };
+}).map(function (a, i) {
+    return _defineProperty({}, i, a);
+}).reduce(function (a, b) {
+    return _extends({}, a, b);
+}, {});
 
 var debug = Boolean(window.location.search && !!window.location.search.match(/debug/));
 
@@ -33365,8 +33354,8 @@ var options = {
         return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master').then(function (data) {
             return data.json();
         }).then(function (data) {
-            data = data.map(function (_ref) {
-                var download_url = _ref.download_url;
+            data = data.map(function (_ref2) {
+                var download_url = _ref2.download_url;
                 return download_url;
             }).filter(function (url) {
                 return url.match(/\.png$/);
@@ -33395,7 +33384,7 @@ var options = {
         alwaysSendReferrer: true
     },
     resolve: function resolve(id) {
-        return console.info("resolve id: " + id);
+        return console.info('resolve id: ' + id);
     },
     reject: function reject(err) {
         return console.warn('err:', err);
