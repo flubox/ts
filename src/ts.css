@@ -8,11 +8,6 @@
     line-height: 28px;
 }
 
-.ts-content-element {
-    margin-bottom: 64px;
-    padding-bottom: 64px;
-}
-
 .ts-content-title {
     color: #595959;
     text-align: center;
@@ -49,6 +44,10 @@
     min-height: 200px;
 }
 
+.ts-grid-selector .ts-content-element {
+    padding: 64px;
+}
+
 .ts-content-element .row {
     align-content: center;
     justify-content: center;
@@ -56,7 +55,8 @@
 }
 
 .ts-grid-selector.row {
-    max-width: 968px;
+    max-width: 1280px;
+    /*max-width: 968px;*/
     margin: auto;
 }
 
