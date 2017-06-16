@@ -60,6 +60,11 @@
     margin: auto;
 }
 
+@media only screen and (max-width: 600px) {
+    .ts-grid-selector .ts-content-element {
+        padding: 0;
+    }
+}
 
 
 .sk-cube-grid {
