@@ -16734,7 +16734,7 @@ exports.default = function (_ref) {
             null,
             _react2.default.createElement(
                 _reactFlexboxGrid.Col,
-                null,
+                { xs: 12 },
                 (0, _ContentPreview2.default)({ id: id, preview: preview, srcSet: srcSet, title: title }),
                 (0, _Description2.default)({ description: description })
             )
