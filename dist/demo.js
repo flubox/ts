@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 275);
+/******/ 	return __webpack_require__(__webpack_require__.s = 276);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -33308,6 +33308,62 @@ module.exports = function(module) {
 
 /***/ }),
 /* 275 */
+/***/ (function(module, exports) {
+
+module.exports = [
+	{
+		"id": 0,
+		"url": [
+			"../demo/pbx_books_2017_graphic_black_L_filter_page_468px.png",
+			"../demo/pbx_books_2017_graphic_black_L_filter_page_1872px.png"
+		]
+	},
+	{
+		"id": 1,
+		"url": [
+			"../demo/pbx_books_2017_graphic_white_L_filter_page_468px.png",
+			"../demo/pbx_books_2017_graphic_white_L_filter_page_1872px.png"
+		]
+	},
+	{
+		"id": 2,
+		"url": [
+			"../demo/pbx_books_2017_simple_color_L_filter_page_468px.png",
+			"../demo/pbx_books_2017_simple_color_L_filter_page_1872px.png"
+		]
+	},
+	{
+		"id": 3,
+		"url": [
+			"../demo/pbx_books_2017_travel_L_filter_page_468px.png",
+			"../demo/pbx_books_2017_travel_L_filter_page_1872px.png"
+		]
+	},
+	{
+		"id": 4,
+		"url": [
+			"../demo/pbx_books_2017_wedding_L_filter_page_468px.png",
+			"../demo/pbx_books_2017_wedding_L_filter_page_1872px.png"
+		]
+	},
+	{
+		"id": 5,
+		"url": [
+			"../demo/pbx_books_white_L_filter_page_468px.png",
+			"../demo/pbx_books_white_L_filter_page_1872px.png"
+		]
+	},
+	{
+		"id": 6,
+		"url": [
+			"../demo/pbx_books_white_L_filter_page_2_468px.png",
+			"../demo/pbx_books_white_L_filter_page_2_1872px.png"
+		]
+	}
+];
+
+/***/ }),
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33322,6 +33378,15 @@ var _index2 = _interopRequireDefault(_index);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var merge = function merge(a, b) {
+    return _extends({}, a, b);
+};
+var fakeEndpoint = __webpack_require__(275).map(function (each, id) {
+    return _extends({}, each, { url: each.url.map(function (url) {
+            return url.replace('http://localhost:8080/fakeimg/', '../demo/');
+        }) });
+});
 
 var trad = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum lacus ac sem dignissim, quis porttitor ligula facilisis. Nam porttitor, lacus ac ultrices mollis, felis lectus interdum purus, ut suscipit urna dolor et enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean mattis tortor nec eros porta vulputate. Nam aliquet nulla at augue faucibus, et congue lacus vehicula. Praesent nec erat et velit cursus luctus. Integer sodales a neque ac ullamcorper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vel est malesuada, congue sem vitae, dapibus elit.'.replace(/[\.,+]/, '').split(' ').map(function (t) {
     return { title: t };
@@ -33338,43 +33403,15 @@ var options = {
     domElement: '#root',
     // endpoint: 'http://localhost:8080/fakeapi',
     endpoint: function endpoint() {
-        // Using local fakeapi after `npm run api`
-        // return fetch('http://localhost:8080/fakeapi')
-        // .then(data => data.json())
-        // .then(data => {
-        //     if (debug) console.info('data', data);
-        //     return new Promise(resolve => {
-        //         setTimeout(() => {
-        //             resolve({json: () => ({then: resolve => resolve(data)})});
-        //         }, 1000);
-        //     });
-        // });
-
-        // Using github
-        return fetch('https://api.github.com/repos/flubox/ts/contents/demo?ref=master').then(function (data) {
-            return data.json();
-        }).then(function (data) {
-            data = data.map(function (_ref2) {
-                var download_url = _ref2.download_url;
-                return download_url;
-            }).filter(function (url) {
-                return url.match(/\.png$/);
-            }).sort().reverse().reduce(function (accumulator, current, index, all) {
-                if (index % 2 === 0) {
-                    return accumulator.concat([{ id: index / 2, url: [current, all[index + 1]] }]);
-                }
-                return accumulator;
-            }, []);
-            return new Promise(function (resolve) {
-                //Fake adjustable delay
-                setTimeout(function () {
-                    resolve({ json: function json() {
-                            return { then: function then(resolve) {
-                                    return resolve(data);
-                                } };
-                        } });
-                }, 1000);
-            });
+        // Using relative filesys
+        return new Promise(function (resolve) {
+            setTimeout(function () {
+                resolve({ json: function json() {
+                        return { then: function then(resolve) {
+                                return resolve(fakeEndpoint);
+                            } };
+                    } });
+            }, 1000);
         });
     },
     gaTrackingId: 'UA-100598143-1',
