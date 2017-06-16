@@ -33384,9 +33384,10 @@ var merge = function merge(a, b) {
 };
 var fakeEndpoint = __webpack_require__(275).map(function (each, id) {
     return _extends({}, each, { url: each.url.map(function (url) {
-            return url.replace('http://localhost:8080/fakeimg/', '../demo/');
+            return url.replace('../demo/', '../ts/demo/');
         }) });
 });
+console.info('fakeEndpoint', fakeEndpoint);
 
 var trad = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum lacus ac sem dignissim, quis porttitor ligula facilisis. Nam porttitor, lacus ac ultrices mollis, felis lectus interdum purus, ut suscipit urna dolor et enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean mattis tortor nec eros porta vulputate. Nam aliquet nulla at augue faucibus, et congue lacus vehicula. Praesent nec erat et velit cursus luctus. Integer sodales a neque ac ullamcorper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vel est malesuada, congue sem vitae, dapibus elit.'.replace(/[\.,+]/, '').split(' ').map(function (t) {
     return { title: t };
