@@ -4,7 +4,7 @@ var a = 'http://localhost:8080/fakeimg/';
 var imgList = fs.readdirSync(__dirname + '/../demo/')
 .filter(f => f.match(/\.png$/))
 .map(f => ({
-    filename: `../demo/${f}`,
+    filename: `./demo/${f}`,
     radix: f.match(/^(.+)_[\d]+/)[1],
     resolution: parseInt(f.match(/([\d]+)px.png$/)[1], 10)
 }))
