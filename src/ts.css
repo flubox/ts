@@ -28,6 +28,10 @@
     transition: all 0.2s ease;
 }
 
+.ts-content-button:hover {
+    background-color: #4c4e51;
+}
+
 .ts-clickable {
     cursor: pointer;
     font-size: 16px;
