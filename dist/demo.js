@@ -33310,85 +33310,50 @@ module.exports = [
 	{
 		"id": 0,
 		"url": [
-<<<<<<< HEAD
-			"../demo/pbx_books_2017_graphic_black_L_filter_page_468px.png",
-			"../demo/pbx_books_2017_graphic_black_L_filter_page_1872px.png"
-=======
 			"./demo/pbx_books_2017_graphic_black_L_filter_page_468px.png",
 			"./demo/pbx_books_2017_graphic_black_L_filter_page_1872px.png"
->>>>>>> dist
 		]
 	},
 	{
 		"id": 1,
 		"url": [
-<<<<<<< HEAD
-			"../demo/pbx_books_2017_graphic_white_L_filter_page_468px.png",
-			"../demo/pbx_books_2017_graphic_white_L_filter_page_1872px.png"
-=======
 			"./demo/pbx_books_2017_graphic_white_L_filter_page_468px.png",
 			"./demo/pbx_books_2017_graphic_white_L_filter_page_1872px.png"
->>>>>>> dist
 		]
 	},
 	{
 		"id": 2,
 		"url": [
-<<<<<<< HEAD
-			"../demo/pbx_books_2017_simple_color_L_filter_page_468px.png",
-			"../demo/pbx_books_2017_simple_color_L_filter_page_1872px.png"
-=======
 			"./demo/pbx_books_2017_simple_color_L_filter_page_468px.png",
 			"./demo/pbx_books_2017_simple_color_L_filter_page_1872px.png"
->>>>>>> dist
 		]
 	},
 	{
 		"id": 3,
 		"url": [
-<<<<<<< HEAD
-			"../demo/pbx_books_2017_travel_L_filter_page_468px.png",
-			"../demo/pbx_books_2017_travel_L_filter_page_1872px.png"
-=======
 			"./demo/pbx_books_2017_travel_L_filter_page_468px.png",
 			"./demo/pbx_books_2017_travel_L_filter_page_1872px.png"
->>>>>>> dist
 		]
 	},
 	{
 		"id": 4,
 		"url": [
-<<<<<<< HEAD
-			"../demo/pbx_books_2017_wedding_L_filter_page_468px.png",
-			"../demo/pbx_books_2017_wedding_L_filter_page_1872px.png"
-=======
 			"./demo/pbx_books_2017_wedding_L_filter_page_468px.png",
 			"./demo/pbx_books_2017_wedding_L_filter_page_1872px.png"
->>>>>>> dist
 		]
 	},
 	{
 		"id": 5,
 		"url": [
-<<<<<<< HEAD
-			"../demo/pbx_books_white_L_filter_page_468px.png",
-			"../demo/pbx_books_white_L_filter_page_1872px.png"
-=======
 			"./demo/pbx_books_white_L_filter_page_468px.png",
 			"./demo/pbx_books_white_L_filter_page_1872px.png"
->>>>>>> dist
 		]
 	},
 	{
 		"id": 6,
 		"url": [
-<<<<<<< HEAD
-			"../demo/pbx_books_white_L_filter_page_2_468px.png",
-			"../demo/pbx_books_white_L_filter_page_2_1872px.png"
-=======
 			"./demo/pbx_books_white_L_filter_page_2_468px.png",
 			"./demo/pbx_books_white_L_filter_page_2_1872px.png"
->>>>>>> dist
 		]
 	}
 ];
