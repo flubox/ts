@@ -12329,16 +12329,12 @@ var GridSelector = exports.GridSelector = (0, _autobindDecorator2.default)(_clas
 
             var className = 'ts-grid-selector';
             return _react2.default.createElement(
-                'div',
-                { className: 'container' },
+                _reactFlexboxGrid.Grid,
+                null,
                 _react2.default.createElement(
-                    _reactFlexboxGrid.Grid,
-                    { fluid: true },
-                    _react2.default.createElement(
-                        _reactFlexboxGrid.Row,
-                        { className: className },
-                        state.data.length ? (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options, { srcSet: srcSet }))(_ContentBuilder2.default) : _react2.default.createElement(_Loading2.default, null)
-                    )
+                    _reactFlexboxGrid.Row,
+                    { className: className },
+                    state.data.length ? (0, _helper.factory)(state.data)(_extends({ onClick: this.onClick }, props.options, { srcSet: srcSet }))(_ContentBuilder2.default) : _react2.default.createElement(_Loading2.default, null)
                 )
             );
         }
@@ -33314,50 +33310,85 @@ module.exports = [
 	{
 		"id": 0,
 		"url": [
+<<<<<<< HEAD
 			"../demo/pbx_books_2017_graphic_black_L_filter_page_468px.png",
 			"../demo/pbx_books_2017_graphic_black_L_filter_page_1872px.png"
+=======
+			"./demo/pbx_books_2017_graphic_black_L_filter_page_468px.png",
+			"./demo/pbx_books_2017_graphic_black_L_filter_page_1872px.png"
+>>>>>>> dist
 		]
 	},
 	{
 		"id": 1,
 		"url": [
+<<<<<<< HEAD
 			"../demo/pbx_books_2017_graphic_white_L_filter_page_468px.png",
 			"../demo/pbx_books_2017_graphic_white_L_filter_page_1872px.png"
+=======
+			"./demo/pbx_books_2017_graphic_white_L_filter_page_468px.png",
+			"./demo/pbx_books_2017_graphic_white_L_filter_page_1872px.png"
+>>>>>>> dist
 		]
 	},
 	{
 		"id": 2,
 		"url": [
+<<<<<<< HEAD
 			"../demo/pbx_books_2017_simple_color_L_filter_page_468px.png",
 			"../demo/pbx_books_2017_simple_color_L_filter_page_1872px.png"
+=======
+			"./demo/pbx_books_2017_simple_color_L_filter_page_468px.png",
+			"./demo/pbx_books_2017_simple_color_L_filter_page_1872px.png"
+>>>>>>> dist
 		]
 	},
 	{
 		"id": 3,
 		"url": [
+<<<<<<< HEAD
 			"../demo/pbx_books_2017_travel_L_filter_page_468px.png",
 			"../demo/pbx_books_2017_travel_L_filter_page_1872px.png"
+=======
+			"./demo/pbx_books_2017_travel_L_filter_page_468px.png",
+			"./demo/pbx_books_2017_travel_L_filter_page_1872px.png"
+>>>>>>> dist
 		]
 	},
 	{
 		"id": 4,
 		"url": [
+<<<<<<< HEAD
 			"../demo/pbx_books_2017_wedding_L_filter_page_468px.png",
 			"../demo/pbx_books_2017_wedding_L_filter_page_1872px.png"
+=======
+			"./demo/pbx_books_2017_wedding_L_filter_page_468px.png",
+			"./demo/pbx_books_2017_wedding_L_filter_page_1872px.png"
+>>>>>>> dist
 		]
 	},
 	{
 		"id": 5,
 		"url": [
+<<<<<<< HEAD
 			"../demo/pbx_books_white_L_filter_page_468px.png",
 			"../demo/pbx_books_white_L_filter_page_1872px.png"
+=======
+			"./demo/pbx_books_white_L_filter_page_468px.png",
+			"./demo/pbx_books_white_L_filter_page_1872px.png"
+>>>>>>> dist
 		]
 	},
 	{
 		"id": 6,
 		"url": [
+<<<<<<< HEAD
 			"../demo/pbx_books_white_L_filter_page_2_468px.png",
 			"../demo/pbx_books_white_L_filter_page_2_1872px.png"
+=======
+			"./demo/pbx_books_white_L_filter_page_2_468px.png",
+			"./demo/pbx_books_white_L_filter_page_2_1872px.png"
+>>>>>>> dist
 		]
 	}
 ];
