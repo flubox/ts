@@ -33331,8 +33331,8 @@ module.exports = [
 	{
 		"id": 3,
 		"url": [
-			"./demo/pbx_books_2017_travel_L_filter_page_468px.png",
-			"./demo/pbx_books_2017_travel_L_filter_page_1872px.png"
+			"./demo/pbx_books_2017_travel_L_filter_page_1872px.png",
+			"./demo/pbx_books_2017_travel_L_filter_page_468px.png"
 		]
 	},
 	{
@@ -33344,13 +33344,6 @@ module.exports = [
 	},
 	{
 		"id": 5,
-		"url": [
-			"./demo/pbx_books_white_L_filter_page_468px.png",
-			"./demo/pbx_books_white_L_filter_page_1872px.png"
-		]
-	},
-	{
-		"id": 6,
 		"url": [
 			"./demo/pbx_books_white_L_filter_page_2_468px.png",
 			"./demo/pbx_books_white_L_filter_page_2_1872px.png"
