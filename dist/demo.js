@@ -16734,7 +16734,7 @@ exports.default = function (_ref) {
             null,
             _react2.default.createElement(
                 _reactFlexboxGrid.Col,
-                null,
+                { xs: 12 },
                 (0, _ContentPreview2.default)({ id: id, preview: preview, srcSet: srcSet, title: title }),
                 (0, _Description2.default)({ description: description })
             )
@@ -33383,7 +33383,6 @@ var fakeEndpoint = __webpack_require__(275).map(function (each, id) {
             return url.replace('../demo/', '../ts/demo/');
         }) });
 });
-console.info('fakeEndpoint', fakeEndpoint);
 
 var trad = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum lacus ac sem dignissim, quis porttitor ligula facilisis. Nam porttitor, lacus ac ultrices mollis, felis lectus interdum purus, ut suscipit urna dolor et enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean mattis tortor nec eros porta vulputate. Nam aliquet nulla at augue faucibus, et congue lacus vehicula. Praesent nec erat et velit cursus luctus. Integer sodales a neque ac ullamcorper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vel est malesuada, congue sem vitae, dapibus elit.'.replace(/[\.,+]/, '').split(' ').map(function (t) {
     return { title: t };
