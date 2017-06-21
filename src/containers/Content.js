@@ -7,7 +7,7 @@ import ContentPreview from '../components/ContentPreview';
 import { Col, Row } from 'react-flexbox-grid';
 
 
-export default ({id, preview, onClick, translate, sort, srcSet}) => {
+export default ({button, id, preview, onClick, translate, sort, srcSet}) => {
     if (unDef(onClick)) {
         console.error('Content: No onClick function found');
         return false;
@@ -16,18 +16,19 @@ export default ({id, preview, onClick, translate, sort, srcSet}) => {
         console.error('Content: No translate function found');
         return false;
     }
-    const {title, description, button} = translate(id);
+    const title = translate(`theme_selector.${id}.title`);
+    const description = translate(`theme_selector.${id}.description`);
     return (
         <Col className='ts-content-element' xs={12} sm={6}>
             <Row>
                 <Col>
-                    {Title({title})}
+                    {Title(title)}
                 </Col>
             </Row>
             <Row>
                 <Col xs={12}>
                     {ContentPreview({id, preview, srcSet, title})}
-                    {Description({description})}
+                    {Description(description)}
                 </Col>
             </Row>
             <Row>
