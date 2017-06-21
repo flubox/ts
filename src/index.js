@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import './ts.css';
 import {GridSelector} from './containers/GridSelector';
 
 const onLoaded = options => render(<GridSelector options={options}/>, document.querySelector(options.domElement));
