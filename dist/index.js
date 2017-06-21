@@ -12355,7 +12355,7 @@ exports.default = GridSelector;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _react = __webpack_require__(7);
@@ -12369,13 +12369,17 @@ var _GridSelector = __webpack_require__(102);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var onLoaded = function onLoaded(options) {
-  return (0, _reactDom.render)(_react2.default.createElement(_GridSelector.GridSelector, { options: options }), document.querySelector(options.domElement));
+    return (0, _reactDom.render)(_react2.default.createElement(_GridSelector.GridSelector, { options: options }), document.querySelector(options.domElement));
 };
 var ts = function ts(options) {
-  return document.addEventListener('DOMContentLoaded', function () {
-    return onLoaded(options);
-  });
+    return document.addEventListener('DOMContentLoaded', function () {
+        return onLoaded(options);
+    });
 };
+
+if (window) {
+    window.ts = ts;
+}
 
 exports.default = ts;
 
