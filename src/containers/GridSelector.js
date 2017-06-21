@@ -57,7 +57,7 @@ export class GridSelector extends Component {
             ReactGA.initialize(props.options.tracking.id, props.options.tracking.options);
 
             // Ready to track
-            this.state = {...this.state, tracking: true};
+            this.state = {...this.state, tracking: true, button: this.props.options.translate('theme_selector.button')};
         }
     }
     onClick(value) {
@@ -75,11 +75,12 @@ export class GridSelector extends Component {
     }
     render() {
         const {onClick, props, state} = this;
+        const {button} = state;
         const className = `ts-grid-selector`;
         return (
             <Grid>
                 <Row className={className}>
-                    {state.data.length ? factory(state.data)({onClick: this.onClick, ...props.options, srcSet})(ContentBuilder):<Loading/>}
+                    {state.data.length ? factory(state.data)({onClick: this.onClick, ...props.options, button, srcSet})(ContentBuilder):<Loading/>}
                 </Row>
             </Grid>
         );
